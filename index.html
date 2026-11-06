@@ -9,95 +9,155 @@
 <meta property="og:description" content="2026 금강수목원 숲속문화제 체험부스 만족도 조사 · 딱 2분!">
 <meta name="theme-color" content="#F7F3EA">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
 <style>
   :root{
     --bg:#F7F3EA; --card:#FFFDF8; --ink:#24352A; --sub:#5F6B61; --line:#E4DCCB;
-    --green:#3E7B4F; --green-soft:#E3EEDC; --warm:#D99A3D;
+    --green:#3E7B4F; --green-ink:#2F6440; --green-soft:#E3EEDC; --warm:#D99A3D; --warm-soft:#F6E6C4; --bark:#6E4B30;
+    --display:"Jua","Pretendard",sans-serif;
+    --pop:cubic-bezier(.34,1.56,.64,1); --out:cubic-bezier(.16,1,.3,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{
     font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
     background:var(--bg); color:var(--ink); -webkit-tap-highlight-color:transparent;
-    word-break:keep-all; line-height:1.5;
+    word-break:keep-all; line-height:1.5; caret-color:var(--green);
   }
+  ::selection{background:#CFE0C3;color:var(--ink)}
+  :focus-visible{outline:3px solid var(--warm);outline-offset:3px;border-radius:12px}
   .app{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;
-    padding:calc(env(safe-area-inset-top) + 12px) 20px calc(env(safe-area-inset-bottom) + 20px)}
-  /* top bar */
-  .top{display:flex;align-items:center;gap:12px;height:40px;margin-bottom:8px}
-  .back{border:0;background:none;font:inherit;color:var(--sub);font-size:15px;padding:8px 4px;cursor:pointer;visibility:hidden}
+    padding:calc(env(safe-area-inset-top) + 10px) 20px calc(env(safe-area-inset-bottom) + 20px)}
+
+  /* top: 숲길 진행 표시 */
+  .top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .top.hide{display:none}
+  .back{display:flex;align-items:center;gap:2px;border:0;background:none;font:inherit;color:var(--sub);
+    font-size:15px;font-weight:600;min-height:44px;padding:0 6px 0 0;cursor:pointer;visibility:hidden}
+  .back svg{width:20px;height:20px}
   .back.show{visibility:visible}
-  .bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
-  .bar i{display:block;height:100%;width:0;background:var(--green);border-radius:99px;transition:width .35s ease}
-  .count{font-size:13px;color:var(--sub);min-width:40px;text-align:right;font-variant-numeric:tabular-nums}
-  .top.hide{visibility:hidden}
+  .trail{order:3;flex:0 0 100%;margin-top:2px}
+  .trail svg{display:block;width:100%;height:auto;overflow:visible}
+  .count{font-family:var(--display);font-size:17px;color:var(--green-ink);min-width:44px;text-align:right;
+    font-variant-numeric:tabular-nums}
+  .grow{transform-box:fill-box;transform-origin:50% 100%;animation:grow .7s var(--pop) both}
+  @keyframes grow{from{transform:scale(0)}}
+  .bob{transform-box:fill-box;transform-origin:50% 100%;animation:bob 1.6s ease-in-out infinite}
+  @keyframes bob{50%{transform:scale(1.15) rotate(4deg)}}
+
   /* screens */
-  .screen{flex:1;display:flex;flex-direction:column;animation:in .35s ease both}
+  .screen{flex:1;display:flex;flex-direction:column;animation:in .45s var(--out) both}
   .screen.out{animation:out .18s ease both}
-  @keyframes in{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
-  @keyframes out{to{opacity:0;transform:translateX(-24px)}}
   .screen.rev{animation-name:inrev}
-  @keyframes inrev{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
-  @media (prefers-reduced-motion:reduce){.screen,.screen.out{animation:none}}
-  .art{display:flex;justify-content:center;margin:4px 0 14px}
-  .art svg{width:100%;max-width:260px;height:auto}
-  .hero svg{max-width:400px}
-  .chip{align-self:flex-start;background:var(--green-soft);color:var(--green);font-weight:700;font-size:13px;
-    padding:4px 12px;border-radius:99px;margin-bottom:8px}
-  h1{font-size:24px;line-height:1.35;font-weight:800;letter-spacing:-.02em}
-  h2{font-size:21px;line-height:1.4;font-weight:800;letter-spacing:-.02em}
-  .sub{color:var(--sub);font-size:15px;margin-top:6px}
-  .eyebrow{color:var(--green);font-weight:700;font-size:14px;margin-bottom:6px}
-  .lead{font-size:16px;color:var(--ink);margin-top:14px}
+  @keyframes in{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+  @keyframes inrev{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+  @keyframes out{to{opacity:0;transform:translateX(-28px)}}
+
+  h1{font-family:var(--display);font-weight:400;font-size:34px;line-height:1.22;letter-spacing:-.01em;text-wrap:balance}
+  h2{font-family:var(--display);font-weight:400;font-size:25px;line-height:1.3;letter-spacing:-.01em;text-wrap:balance}
+  .sub{color:var(--sub);font-size:15.5px;margin-top:6px}
+  .lead{font-size:16.5px;margin-top:14px;max-width:34em}
   .lead+.lead{margin-top:8px}
-  /* options */
-  .opts{display:flex;flex-direction:column;gap:10px;margin-top:20px}
-  .opt{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:12px 16px;
-    background:var(--card);border:2px solid var(--line);border-radius:16px;
-    font:inherit;font-size:17px;font-weight:600;color:var(--ink);text-align:left;cursor:pointer;
-    transition:border-color .15s,background .15s,transform .1s}
-  .opt:active{transform:scale(.98)}
-  .opt .emo{font-size:24px;line-height:1}
-  .opt .num{width:28px;height:28px;border-radius:50%;background:var(--green-soft);color:var(--green);
-    display:grid;place-items:center;font-size:14px;font-weight:800;flex:none}
-  .opt.on{border-color:var(--green);background:var(--green-soft)}
-  .opt.on .num{background:var(--green);color:#fff}
-  @media (hover:hover){.opt:hover{border-color:#B9CDB0}}
-  /* booth cards */
+
+  /* 질문 위 장면 */
+  .stage{display:flex;justify-content:center;align-items:flex-end;border-radius:24px;padding:12px 12px 4px;margin-bottom:16px;background:var(--green-soft)}
+  .stage svg{width:100%;max-width:200px;height:auto}
+  .stage.t1{background:var(--warm-soft)} .stage.t2{background:#DDEBE4} .stage.t3{background:#F2E2D2}
+
+  /* 그림 버튼: 타일(2열) */
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+  .opts.list{grid-template-columns:1fr}
+  .opts>:last-child:nth-child(odd):not(.row){grid-column:1/-1}
+  .tile,.row,.card{position:relative;background:var(--card);border:2px solid var(--line);border-radius:18px;
+    font:inherit;color:var(--ink);cursor:pointer;
+    transition:border-color .15s,background-color .15s,transform .25s var(--pop)}
+  .tile{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;
+    min-height:128px;padding:10px 8px 14px;font-size:17.5px;font-weight:700;line-height:1.3;text-align:center}
+  .tile svg{width:88px;height:auto}
+  .row{display:flex;align-items:center;gap:12px;width:100%;min-height:66px;padding:8px 16px 8px 8px;
+    font-size:17px;font-weight:600;text-align:left}
+  .row svg{width:54px;height:auto;flex:none}
+  .tile svg,.row svg,.card svg{transition:transform .3s var(--pop)}
+  .tile:active,.row:active,.card:active{transform:scale(.96)}
+  @media (hover:hover){
+    .tile:hover,.row:hover,.card:hover{border-color:#B9CDB0;transform:translateY(-2px)}
+    .tile:hover svg,.row:hover svg{transform:rotate(-4deg) scale(1.06)}
+  }
+  .on{border-color:var(--green);background:var(--green-soft)}
+  .on>svg{animation:pop .5s var(--pop)}
+  @keyframes pop{40%{transform:scale(1.22) rotate(-6deg)}}
+
+  /* 나뭇잎 팡! */
+  .burst{position:absolute;width:0;height:0;pointer-events:none;z-index:2}
+  .burst i{position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:0 100% 0 100%;
+    animation:leaf .75s var(--out) forwards}
+  @keyframes leaf{from{transform:translate(0,0) scale(.3);opacity:1}
+    to{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1);opacity:0}}
+
+  /* 체험부스 카드 */
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
-  .card{position:relative;display:flex;flex-direction:column;background:var(--card);border:2px solid var(--line);
-    border-radius:18px;padding:10px 10px 12px;font:inherit;color:var(--ink);text-align:left;cursor:pointer;
-    transition:border-color .15s,background .15s,transform .1s}
-  .card:active{transform:scale(.98)}
+  .card{display:flex;flex-direction:column;padding:10px 10px 12px;text-align:left}
   .card svg{width:100%;height:auto;border-radius:12px}
-  .card b{font-size:14.5px;line-height:1.35;margin-top:8px;font-weight:700}
-  .card small{font-size:12.5px;color:var(--sub);margin-top:2px;line-height:1.35}
-  .card .tick{position:absolute;top:16px;right:16px;width:26px;height:26px;border-radius:50%;
-    background:#fff;border:2px solid var(--line);display:grid;place-items:center;color:#fff;font-size:15px;font-weight:900}
-  .card.on{border-color:var(--green);background:var(--green-soft)}
-  .card.on .tick{background:var(--green);border-color:var(--green)}
+  .card b{font-size:15px;line-height:1.35;margin-top:8px;font-weight:700}
+  .card small{font-size:13px;color:var(--sub);margin-top:2px;line-height:1.35}
+  .card .tick{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;
+    background:#fff;border:2px solid var(--line);display:grid;place-items:center;transition:transform .3s var(--pop)}
+  .card .tick svg{width:16px;border-radius:0;opacity:0}
+  .card.on .tick{background:var(--green);border-color:var(--green);transform:scale(1.1)}
+  .card.on .tick svg{opacity:1}
+  .card.on>svg{animation:none}
   .card:last-child:nth-child(odd){grid-column:1/-1}
-  .card:last-child:nth-child(odd) svg{max-width:58%;align-self:center}
-  /* bottom buttons */
+  .card:last-child:nth-child(odd)>svg{max-width:58%;align-self:center}
+
+  /* 아래 버튼 */
   .spacer{flex:1;min-height:20px}
-  .btn{display:block;width:100%;min-height:56px;border:0;border-radius:16px;background:var(--green);color:#fff;
-    font:inherit;font-size:17px;font-weight:700;cursor:pointer;margin-top:20px;transition:opacity .15s}
-  .btn:disabled{opacity:.35;cursor:default}
-  .btn.ghost{background:none;color:var(--sub);font-weight:600;margin-top:6px;min-height:48px}
-  textarea{width:100%;min-height:130px;margin-top:18px;padding:14px 16px;border:2px solid var(--line);border-radius:16px;
-    background:var(--card);font:inherit;font-size:16px;color:var(--ink);resize:vertical}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:58px;border:0;border-radius:18px;
+    background:var(--green);color:#fff;font:inherit;font-size:18px;font-weight:700;cursor:pointer;margin-top:20px;
+    box-shadow:0 6px 16px -6px rgba(47,100,64,.55);transition:transform .25s var(--pop),opacity .15s}
+  .btn svg{width:20px;height:20px;transition:transform .25s var(--pop)}
+  .btn:active{transform:scale(.97)}
+  @media (hover:hover){.btn:not(:disabled):hover svg{transform:translateX(4px)}}
+  .btn:disabled{opacity:.35;cursor:default;box-shadow:none}
+  .btn.ghost{background:none;color:var(--sub);font-weight:600;margin-top:6px;min-height:48px;box-shadow:none}
+
+  /* 마지막 한마디: 편지지 */
+  textarea{width:100%;min-height:162px;margin-top:18px;padding:14px 16px;border:2px solid var(--line);border-radius:18px;
+    font:inherit;font-size:16.5px;line-height:32px;color:var(--ink);resize:vertical;
+    background:var(--card) repeating-linear-gradient(transparent 0 31px,var(--line) 31px 32px) 0 14px/100% 32px local}
+  textarea::placeholder{color:#7A857C}
   textarea:focus{outline:none;border-color:var(--green)}
-  .hint{font-size:13px;color:var(--sub);text-align:right;margin-top:6px}
-  .sign{margin-top:18px;font-weight:700;color:var(--green)}
-  .note{font-size:12px;color:var(--sub);text-align:center;margin-top:10px}
+  .hint{font-size:13px;color:var(--sub);text-align:right;margin-top:6px;font-variant-numeric:tabular-nums}
+
+  /* 시작 화면 */
+  .hero{position:relative;overflow:hidden;margin:0 -8px 22px;padding-top:28px;border-radius:28px;background:var(--green-soft)}
+  .hero>svg{display:block;width:100%;height:auto}
+  .fall{position:absolute;top:-16px;width:14px;height:14px;border-radius:0 100% 0 100%;animation:fall linear infinite}
+  @keyframes fall{from{transform:translate(0,0) rotate(0)}to{transform:translate(-40px,260px) rotate(540deg)}}
+  .meta{align-self:flex-start;margin-top:12px;background:var(--warm-soft);color:var(--bark);font-size:13.5px;font-weight:700;
+    padding:5px 12px;border-radius:99px}
+
+  /* 끝 화면 */
+  .forest{margin:0 -8px 20px}
+  .forest svg{display:block;width:100%;height:auto;overflow:visible}
+  .float{transform-box:fill-box;transform-origin:50% 50%;animation:float 3s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-6px) scale(1.04)}}
+  .sign{margin-top:18px;font-family:var(--display);font-size:19px;color:var(--green-ink)}
+  .note{font-size:12.5px;color:var(--sub);text-align:center;margin-top:10px}
   .center{text-align:center}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .fall{display:none}
+  }
 </style>
 </head>
 <body>
 <div class="app">
   <div class="top hide" id="top">
-    <button class="back" id="back" type="button">← 이전</button>
-    <div class="bar"><i id="bar"></i></div>
+    <button class="back" id="back" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5L7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>이전</button>
+    <div class="trail" id="trail"></div>
     <div class="count" id="count"></div>
   </div>
   <main id="view"></main>
@@ -107,8 +167,8 @@
 /* ===================== 설정 =====================
    Supabase 대시보드 > Project Settings > API 에서 복사해 넣으세요.
    anon(public) 키 또는 publishable 키만 넣으세요. service_role/secret 키는 절대 넣지 마세요. */
-const SUPABASE_URL = "https://uwddnunwclrrrwzbatyo.supabase.co";
-const SUPABASE_KEY = "sb_publishable_DuJvW8Qnfq0xVo1-_QiL3Q_9eNVJ4_s";
+const SUPABASE_URL = "https://YOUR-PROJECT.supabase.co";
+const SUPABASE_KEY = "YOUR-ANON-OR-PUBLISHABLE-KEY";
 const TABLE = "survey_responses";
 /* ================================================ */
 
@@ -287,6 +347,86 @@ const ART = {
     ${leaf(30,30,-30,1.3,C.g2)}${leaf(172,28,40,1.3,C.w2)}`, C.g5),
 };
 
+/* ---------- 답 버튼 그림 ---------- */
+const ic = body => svg("0 0 64 56", `<ellipse cx="32" cy="50" rx="22" ry="4" fill="${C.g4}"/>${body}`);
+const heartAt = (x,y,s,c=C.w1) => `<path transform="translate(${x} ${y}) scale(${s}) translate(-120 -54)" d="M120 96C92 76 70 58 70 38C70 22 82 12 96 12C107 12 116 18 120 28C124 18 133 12 144 12C158 12 170 22 170 38C170 58 148 76 120 96Z" fill="${c}"/>`;
+const star = (x,y,s,c) => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 -6L1.5 -1.5L6 0L1.5 1.5L0 6L-1.5 1.5L-6 0L-1.5 -1.5Z" fill="${c}"/>`;
+const sproutBody = `<path d="M32 50V34" stroke="${C.g1}" stroke-width="3.4" stroke-linecap="round"/>
+  <path d="M32 41C24 41 19 36 18 29C26 29 31 34 32 41Z" fill="${C.g2}"/><path d="M32 37C39 36 44 31 45 24C38 24 33 29 32 37Z" fill="${C.g3}"/>`;
+
+// 숫자 척도: 많을수록 크게 자란 나무 (1 씨앗 → 5 열매 맺은 나무)
+const LEVEL = {
+  1: () => ic(`<path d="M18 50Q32 40 46 50Z" fill="${C.b1}" opacity=".45"/><ellipse cx="32" cy="44" rx="5" ry="3.6" fill="${C.b2}"/>`),
+  2: () => ic(`<path d="M32 50V42" stroke="${C.g1}" stroke-width="3" stroke-linecap="round"/>${leaf(27,41,-55,.7,C.g2)}${leaf(37,40,55,.7,C.g3)}`),
+  3: () => ic(sproutBody),
+  4: () => ic(tree(32,50,.7,C.g2)),
+  5: () => ic(`${tree(32,50,.95,C.g1)}<circle cx="25" cy="21" r="2.6" fill="${C.w1}"/><circle cx="39" cy="16" r="2.6" fill="${C.w2}"/><circle cx="36" cy="27" r="2.6" fill="${C.w1}"/>`),
+};
+
+// 즐거움: 표정 있는 나무 (초록 → 단풍)
+const face = (col, eyes, mouth, extra="") => ic(`<rect x="29" y="38" width="6" height="12" rx="2" fill="${C.b1}"/><circle cx="32" cy="24" r="19" fill="${col}"/>${eyes}${mouth}${extra}`);
+const dots = `<circle cx="25.5" cy="22" r="2.5" fill="${C.ink}"/><circle cx="38.5" cy="22" r="2.5" fill="${C.ink}"/>`;
+const cheeks = `<circle cx="20" cy="29" r="3.2" fill="#F2A08A" opacity=".75"/><circle cx="44" cy="29" r="3.2" fill="#F2A08A" opacity=".75"/>`;
+const stroke = d => `<path d="${d}" stroke="${C.ink}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+const EMO = {
+  "😍": () => face(C.g2, stroke("M22 23Q25.5 18 29 23M35 23Q38.5 18 42 23"), `<path d="M24 28Q32 39 40 28Z" fill="${C.ink}"/>`, cheeks + star(52,8,.9,C.w1) + star(11,12,.7,C.w2)),
+  "😊": () => face(C.g2, dots, stroke("M25 28Q32 35 39 28"), cheeks),
+  "🙂": () => face(C.g3, dots, stroke("M26 29Q32 33 38 29")),
+  "😐": () => face(C.w2, dots, stroke("M26 30H38")),
+  "😢": () => face(C.w1, dots, stroke("M25 33Q32 27 39 33"), `<path d="M41 25q2.4 4 0 6.2q-2.4-2.2 0-6.2z" fill="#6FA8CF"/>${leaf(52,40,30,.8,C.b2)}`),
+  // 소식 인지
+  "🌳": () => ic(tree(30,50,.9,C.g1) + heartAt(50,14,.17)),
+  "🍂": () => ic(leaf(24,47,72,1.5,C.w1) + leaf(40,46,-50,1.7,C.b2) + leaf(33,20,25,1.3,C.w2)),
+  "🌱": () => ic(sproutBody),
+  "👀": () => ic(`<circle cx="20" cy="41" r="11" fill="${C.g2}"/><circle cx="44" cy="41" r="11" fill="${C.g2}"/><circle cx="32" cy="38" r="13" fill="${C.g3}"/>
+    <ellipse cx="26.5" cy="27" rx="5" ry="6" fill="#fff" stroke="${C.ink}" stroke-width="1.6"/><ellipse cx="37.5" cy="27" rx="5" ry="6" fill="#fff" stroke="${C.ink}" stroke-width="1.6"/>
+    <circle cx="27.5" cy="28" r="2.6" fill="${C.ink}"/><circle cx="38.5" cy="28" r="2.6" fill="${C.ink}"/>`),
+};
+
+// 선택형 문항: 보기 순서대로 그림
+const PICK_ART = {
+  age_group: [ // 새싹부터 큰 나무까지
+    () => ic(sproutBody),
+    () => ic(tree(32,50,.55,C.g3)),
+    () => ic(tree(32,50,.68,C.g2)),
+    () => ic(tree(32,50,.8,C.g2)),
+    () => ic(tree(32,50,.92,C.g1)),
+    () => ic(`<circle cx="19" cy="24" r="11" fill="${C.g2}"/><circle cx="45" cy="24" r="11" fill="${C.g2}"/>${tree(32,50,.95,C.g1)}<circle cx="26" cy="20" r="2.4" fill="${C.w1}"/><circle cx="40" cy="25" r="2.4" fill="${C.w1}"/>`),
+  ],
+  companion: [
+    () => ic(tree(32,50,.82,C.g2)),
+    () => ic(tree(20,50,.82,C.g1) + tree(38,50,.62,C.w1) + tree(51,50,.42,C.g3)),
+    () => ic(tree(19,50,.72,C.g2) + tree(45,50,.72,C.w1) + heartAt(32,12,.15)),
+    () => ic(pine(10,50,.48,C.g2) + pine(54,50,.48,C.g2) + pine(21,50,.58,C.g1) + pine(43,50,.58,C.g1) + pine(32,50,.7,C.g2)),
+    () => ic(`<path d="M16 10H48A8 8 0 0 1 56 18V30A8 8 0 0 1 48 38H30L22 46V38H16A8 8 0 0 1 8 30V18A8 8 0 0 1 16 10Z" fill="${C.cream}" stroke="#E4DCCB" stroke-width="2"/>
+      <circle cx="22" cy="24" r="3" fill="${C.w1}"/><circle cx="32" cy="24" r="3" fill="${C.w1}"/><circle cx="42" cy="24" r="3" fill="${C.w1}"/>`),
+  ],
+  syd_awareness: [
+    () => ic(`<rect x="20" y="6" width="4" height="44" rx="2" fill="${C.b1}"/><path d="M24 9H50L43 19L50 29H24Z" fill="${C.g1}"/>${leaf(35,19,40,.9,C.w3)}`),
+    () => ic(sproutBody + star(14,16,1,C.w1) + star(50,12,.8,C.w2) + star(52,32,.6,C.w1)),
+  ],
+};
+
+// 끝 화면: 답 하나에 나무 한 그루
+function forestArt(n){
+  let trees = "";
+  for (let i = 0; i < n; i++){
+    const x = 24 + i * (312 / Math.max(n - 1, 1)), y = 150 + (i % 2) * 6;
+    const t = i % 3 === 0 ? pine(x, y, .85, C.g1) : i % 3 === 1 ? tree(x, y, .9, C.g2) : tree(x, y, .8, C.w1);
+    trees += `<g class="grow" style="animation-delay:${200 + i * 90}ms">${t}</g>`;
+  }
+  return svg("0 0 360 200", `
+    <path d="M0 140Q90 112 190 136T360 126V200H0Z" fill="${C.g4}"/>
+    <circle cx="300" cy="40" r="22" fill="${C.w3}"/>
+    <g class="float"><path d="M180 92C156 74 138 60 138 42C138 28 149 19 161 19C170 19 177 24 180 32C183 24 190 19 199 19C211 19 222 28 222 42C222 60 204 74 180 92Z" fill="${C.w1}"/>${leaf(180,52,0,1.8,C.cream)}</g>
+    ${trees}
+    <path d="M0 172Q130 152 230 168T360 162V200H0Z" fill="${C.g3}"/>
+    ${leaf(90,40,30,1.3,C.w2)}${leaf(256,70,-40,1.3,C.g2)}${leaf(60,96,-60,1.1,C.b2)}${leaf(330,96,50,1.1,C.w2)}`);
+}
+
+const ARROW = `<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const CHECK = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
 /* ---------- 문항 ---------- */
 const AGREE = [[5,"매우 그렇다"],[4,"그렇다"],[3,"보통이다"],[2,"그렇지 않다"],[1,"전혀 그렇지 않다"]];
 const QUESTIONS = [
@@ -327,14 +467,31 @@ let answers = {};
 let busy = false;
 const view = document.getElementById("view");
 const $top = document.getElementById("top"), $back = document.getElementById("back");
-const $bar = document.getElementById("bar"), $count = document.getElementById("count");
+const $trail = document.getElementById("trail"), $count = document.getElementById("count");
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function go(next, reverse=false){
   const old = view.firstElementChild;
   const render = () => { step = next; draw(reverse); window.scrollTo(0,0); busy = false; };
-  if (old && !matchMedia("(prefers-reduced-motion: reduce)").matches){ old.classList.add("out"); setTimeout(render, 170); }
+  if (old && !calm()){ old.classList.add("out"); setTimeout(render, 170); }
   else render();
+}
+
+// 진행 표시: 지나온 질문마다 나무 한 그루, 지금 질문은 새싹
+function trailHTML(reverse){
+  const n = QUESTIONS.length;
+  let g = `<path d="M0 46Q85 40 170 45T340 44V54H0Z" fill="${C.g4}"/>`;
+  for (let i = 0; i < n; i++){
+    const x = 14 + i * (312 / (n - 1));
+    if (i < step){
+      const t = i % 3 === 0 ? pine(x,46,.4,C.g1) : i % 3 === 1 ? tree(x,46,.46,C.g2) : tree(x,46,.4,C.w1);
+      g += i === step - 1 && !reverse ? `<g class="grow">${t}</g>` : t;
+    } else if (i === step){
+      g += `<g class="bob"><g transform="translate(${x} 46)"><path d="M0 0V-9" stroke="${C.g1}" stroke-width="2.4" stroke-linecap="round"/><path d="M0 -6C-5 -6 -8 -9 -8 -13C-3 -13 0 -10 0 -6Z" fill="${C.g2}"/><path d="M0 -8C4 -8 7 -11 7 -15C3 -15 0 -12 0 -8Z" fill="${C.g3}"/></g></g>`;
+    } else g += `<circle cx="${x}" cy="46" r="2.6" fill="${C.b1}" opacity=".35"/>`;
+  }
+  return svg("0 16 340 38", g);
 }
 
 function draw(reverse){
@@ -342,7 +499,7 @@ function draw(reverse){
   const inQ = step >= 0 && step < n;
   $top.classList.toggle("hide", !inQ);
   $back.classList.toggle("show", step > 0 && inQ);
-  if (inQ){ $bar.style.width = ((step)/n*100)+"%"; $count.textContent = `${step+1} / ${n}`; }
+  if (inQ){ $trail.innerHTML = trailHTML(reverse); $count.textContent = `${step+1} / ${n}`; }
   let html = "";
   if (step < 0) html = startHTML();
   else if (step >= n) html = endHTML();
@@ -352,19 +509,21 @@ function draw(reverse){
 }
 
 function startHTML(){
+  const cols = [C.w1, C.g2, C.w2, C.b2, C.g3];
+  const leaves = cols.map((c,i) => `<i class="fall" style="left:${12+i*19}%;background:${c};animation-duration:${7+i*1.3}s;animation-delay:${-i*1.7}s"></i>`).join("");
   return `
-    <div class="art hero">${ART.hero()}</div>
-    <p class="eyebrow">2026 금강수목원 숲속문화제 체험부스 만족도 조사</p>
+    <div class="hero">${leaves}${ART.hero()}</div>
     <h1>오늘 숲속에서<br>어떠셨나요? 🌿</h1>
+    <p class="meta">2026 금강수목원 숲속문화제 체험부스 만족도 조사</p>
     <p class="lead">9월 21일, 금강수목원이 다시 문을 열었어요! 이 기쁜 소식을 시민 여러분과 함께 나누려고 세종청년도슨트가 체험부스를 준비했습니다.</p>
     <p class="lead">딱 2분! 답을 누르면 바로 다음 질문으로 넘어가요.</p>
     <div class="spacer"></div>
-    <button class="btn" data-act="start">시작하기</button>`;
+    <button class="btn" data-act="start">시작하기${ARROW}</button>`;
 }
 
 function endHTML(){
   return `
-    <div class="art hero">${ART.thanks()}</div>
+    <div class="forest">${forestArt(QUESTIONS.length)}</div>
     <h1 class="center">참여해 주셔서<br>감사합니다! 🌿</h1>
     <p class="lead center">금강수목원에 앞으로도 자주 방문해 주세요!<br>우리 지역의 소중한 이야기를 계속 전하겠습니다.</p>
     <p class="sign center">– 세종청년도슨트</p>
@@ -375,47 +534,65 @@ function endHTML(){
 
 function questionHTML(q){
   const a = answers[q.id];
-  let head = `${q.art ? `<div class="art">${ART[q.art]()}</div>` : ""}
-    ${q.chip ? `<span class="chip">${q.chip}</span>` : ""}
+  let head = `${q.art ? `<div class="stage t${step%4}">${ART[q.art]()}</div>` : ""}
     <h2>${q.title}</h2>${q.sub ? `<p class="sub">${q.sub}</p>` : ""}`;
   if (q.type === "single"){
-    return head + `<div class="opts">${q.options.map(o =>
-      `<button class="opt${a===o?" on":""}" data-v="${esc(o)}">${esc(o)}</button>`).join("")}</div>`;
+    const arts = PICK_ART[q.id] || [];
+    return head + `<div class="opts">${q.options.map((o,i) =>
+      `<button class="tile${a===o?" on":""}" data-v="${esc(o)}" aria-pressed="${a===o}">${arts[i] ? arts[i]() : ""}<span>${esc(o)}</span></button>`).join("")}</div>`;
   }
   if (q.type === "scale"){
-    return head + `<div class="opts">${q.options.map(([v,l,e]) =>
-      `<button class="opt${a===v?" on":""}" data-v="${v}">${e?`<span class="emo">${e}</span>`:`<span class="num">${v}</span>`}${esc(l)}</button>`).join("")}</div>`;
+    return head + `<div class="opts list">${q.options.map(([v,l,e]) =>
+      `<button class="row${a===v?" on":""}" data-v="${v}" aria-pressed="${a===v}">${(e && EMO[e] ? EMO[e] : LEVEL[v])()}<span>${esc(l)}</span></button>`).join("")}</div>`;
   }
   if (q.type === "multi"){
     const sel = a || [];
     return head + `<div class="grid">${q.options.map(o =>
       `<button class="card${sel.includes(o.v)?" on":""}" data-m="${esc(o.v)}" aria-pressed="${sel.includes(o.v)}">
-        <span class="tick">✓</span>${ART[o.art]()}<b>${esc(o.v)}</b><small>${esc(o.d)}</small></button>`).join("")}</div>
+        <span class="tick">${CHECK}</span>${ART[o.art]()}<b>${esc(o.v)}</b><small>${esc(o.d)}</small></button>`).join("")}</div>
       <div class="spacer"></div>
-      <button class="btn" data-act="next" ${sel.length?"":"disabled"}>다음</button>`;
+      <button class="btn" data-act="next" ${sel.length?"":"disabled"}>다음${ARROW}</button>`;
   }
   if (q.type === "text"){
     return head + `<textarea id="txt" maxlength="500" placeholder="자유롭게 적어주세요">${esc(a||"")}</textarea>
       <p class="hint"><span id="len">${(a||"").length}</span>/500</p>
       <div class="spacer"></div>
-      <button class="btn" data-act="submit">제출하기</button>`;
+      <button class="btn" data-act="submit">제출하기${ARROW}</button>`;
   }
+}
+
+// 고른 자리에서 나뭇잎이 팡 터짐
+function burst(el, e){
+  if (calm()) return;
+  const r = el.getBoundingClientRect();
+  const x = e.detail ? e.clientX - r.left : r.width / 2, y = e.detail ? e.clientY - r.top : r.height / 2;
+  const cols = [C.g2, C.w1, C.g3, C.w2, C.b2, C.g1, C.w2];
+  const s = document.createElement("span");
+  s.className = "burst"; s.style.left = x + "px"; s.style.top = y + "px";
+  s.innerHTML = cols.map((c,i) => {
+    const ang = i / cols.length * Math.PI * 2 + Math.random() * .6, d = 40 + Math.random() * 24;
+    return `<i style="--dx:${(Math.cos(ang)*d).toFixed(1)}px;--dy:${(Math.sin(ang)*d - 12).toFixed(1)}px;--r:${Math.round(Math.random()*360)}deg;background:${c}"></i>`;
+  }).join("");
+  el.appendChild(s);
+  setTimeout(() => s.remove(), 800);
 }
 
 function bind(){
   const q = QUESTIONS[step];
-  view.querySelectorAll("[data-v]").forEach(b => b.addEventListener("click", () => {
+  view.querySelectorAll("[data-v]").forEach(b => b.addEventListener("click", e => {
     if (busy) return; busy = true;
     const v = q.type === "scale" ? Number(b.dataset.v) : b.dataset.v;
     answers[q.id] = v;
-    view.querySelectorAll(".opt").forEach(x => x.classList.toggle("on", x === b));
-    setTimeout(() => go(step+1), 260);
+    view.querySelectorAll("[data-v]").forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b); });
+    burst(b, e);
+    setTimeout(() => go(step+1), calm() ? 260 : 480);
   }));
-  view.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => {
+  view.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", e => {
     const sel = new Set(answers[q.id] || []);
     sel.has(b.dataset.m) ? sel.delete(b.dataset.m) : sel.add(b.dataset.m);
     answers[q.id] = q.options.map(o => o.v).filter(v => sel.has(v));
     b.classList.toggle("on"); b.setAttribute("aria-pressed", sel.has(b.dataset.m));
+    if (sel.has(b.dataset.m)) burst(b, e);
     view.querySelector('[data-act="next"]').disabled = sel.size === 0;
   }));
   const txt = document.getElementById("txt");
