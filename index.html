@@ -1,449 +1,480 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>세종에서 사는 나에게 중요한 것은?</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2026 금강수목원 숲속문화제 체험부스 만족도 조사</title>
+<meta name="description" content="세종청년도슨트 체험부스 만족도 조사 · 딱 2분!">
+<meta property="og:title" content="오늘 숲속에서 어떠셨나요? 🌿">
+<meta property="og:description" content="2026 금강수목원 숲속문화제 체험부스 만족도 조사 · 딱 2분!">
+<meta name="theme-color" content="#F7F3EA">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
-:root{
-  --bg:#f7fbff;
-  --ink:#17324d;
-  --muted:#6c7a89;
-  --card:#ffffff;
-  --line:#dfe8f1;
-  --accent:#2a72d4;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
-  color:var(--ink);
-  background:linear-gradient(180deg,#edf7ff 0%,#f9fbfd 38%,#ffffff 100%);
-}
-.wrap{max-width:760px;margin:0 auto;padding:20px 16px 44px}
-.hero{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:28px;
-  padding:28px 22px;
-  box-shadow:0 12px 35px rgba(30,72,115,.09);
-  text-align:center;
-}
-.badge{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:13px;font-weight:800;color:#2563a8;
-  background:#eaf4ff;border-radius:999px;padding:8px 12px;
-}
-h1{font-size:31px;line-height:1.2;margin:14px 0 10px;letter-spacing:-.8px}
-.lead{font-size:16px;line-height:1.6;color:var(--muted);margin:0 auto 18px;max-width:560px}
-.mascot{
-  margin:14px auto 18px;
-  width:160px;height:160px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(145deg,#e9f6ff,#fff4dd);
-}
-.mascot svg{width:134px;height:134px}
-.primary,.secondary{
-  border:0;border-radius:16px;padding:15px 18px;font-size:16px;font-weight:800;cursor:pointer;
-}
-.primary{background:var(--accent);color:white;width:100%;box-shadow:0 8px 20px rgba(42,114,212,.2)}
-.secondary{background:#eef3f8;color:#2f4a64}
-.meta{margin-top:12px;color:#8a97a5;font-size:13px}
-.screen{display:none}
-.screen.active{display:block}
-.progress{
-  height:8px;background:#e8edf3;border-radius:99px;overflow:hidden;margin:18px 0 8px
-}
-.progress > div{height:100%;background:var(--accent);width:0;transition:.25s}
-.qhead{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:13px;margin:8px 0 14px}
-.question{
-  background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;
-  box-shadow:0 10px 28px rgba(30,72,115,.07)
-}
-.question h2{font-size:23px;line-height:1.35;margin:0 0 18px;letter-spacing:-.4px}
-.answers{display:grid;gap:10px}
-.answer{
-  display:flex;align-items:flex-start;gap:10px;text-align:left;
-  width:100%;border:1px solid #dce6ef;background:#fff;border-radius:16px;
-  padding:14px 15px;font-size:15px;line-height:1.45;cursor:pointer;color:#274057
-}
-.answer:hover{border-color:#8bb7e8;background:#f5faff}
-.answer.selected{border:2px solid var(--accent);background:#eef6ff}
-.emoji{font-size:22px;line-height:1.1}
-.nav{display:flex;gap:10px;margin-top:14px}
-.nav button{flex:1}
-.result{
-  border-radius:28px;padding:26px 20px;background:white;border:1px solid var(--line);
-  box-shadow:0 12px 35px rgba(30,72,115,.09);text-align:center
-}
-.result .type{font-size:13px;font-weight:900;display:inline-block;border-radius:999px;padding:7px 11px;margin-bottom:8px}
-.result h2{font-size:30px;margin:6px 0 10px;letter-spacing:-.6px}
-.result .quote{font-size:18px;font-weight:800;line-height:1.45;margin:6px 0 12px}
-.result p{color:#5f7082;line-height:1.65;margin:0 auto 16px;max-width:560px}
-.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left;margin:18px 0}
-.mini{
-  border-radius:16px;padding:14px;border:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.72)
-}
-.mini b{display:block;margin-bottom:6px;font-size:14px}
-.mini span{font-size:13px;color:#5f7082;line-height:1.45}
-.result-mascot{
-  width:220px;height:180px;margin:6px auto 12px;border-radius:26px;
-  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden
-}
-.result-mascot .prop{font-size:54px;position:absolute;right:22px;bottom:16px;filter:drop-shadow(0 5px 6px rgba(0,0,0,.1))}
-.hashtag{font-size:13px;font-weight:800;margin-top:10px}
-.cta{
-  margin-top:18px;padding:16px;border-radius:18px;background:#172c44;color:#fff;
-  font-weight:900;font-size:17px;line-height:1.4
-}
-.footnote{font-size:12px;color:#8b96a3;line-height:1.5;margin-top:14px}
-@media(max-width:560px){
-  h1{font-size:27px}
-  .question h2{font-size:21px}
-  .result-grid{grid-template-columns:1fr}
-}
+  :root{
+    --bg:#F7F3EA; --card:#FFFDF8; --ink:#24352A; --sub:#5F6B61; --line:#E4DCCB;
+    --green:#3E7B4F; --green-soft:#E3EEDC; --warm:#D99A3D;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+    background:var(--bg); color:var(--ink); -webkit-tap-highlight-color:transparent;
+    word-break:keep-all; line-height:1.5;
+  }
+  .app{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;
+    padding:calc(env(safe-area-inset-top) + 12px) 20px calc(env(safe-area-inset-bottom) + 20px)}
+  /* top bar */
+  .top{display:flex;align-items:center;gap:12px;height:40px;margin-bottom:8px}
+  .back{border:0;background:none;font:inherit;color:var(--sub);font-size:15px;padding:8px 4px;cursor:pointer;visibility:hidden}
+  .back.show{visibility:visible}
+  .bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--green);border-radius:99px;transition:width .35s ease}
+  .count{font-size:13px;color:var(--sub);min-width:40px;text-align:right;font-variant-numeric:tabular-nums}
+  .top.hide{visibility:hidden}
+  /* screens */
+  .screen{flex:1;display:flex;flex-direction:column;animation:in .35s ease both}
+  .screen.out{animation:out .18s ease both}
+  @keyframes in{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+  @keyframes out{to{opacity:0;transform:translateX(-24px)}}
+  .screen.rev{animation-name:inrev}
+  @keyframes inrev{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.screen,.screen.out{animation:none}}
+  .art{display:flex;justify-content:center;margin:4px 0 14px}
+  .art svg{width:100%;max-width:260px;height:auto}
+  .hero svg{max-width:400px}
+  .chip{align-self:flex-start;background:var(--green-soft);color:var(--green);font-weight:700;font-size:13px;
+    padding:4px 12px;border-radius:99px;margin-bottom:8px}
+  h1{font-size:24px;line-height:1.35;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:21px;line-height:1.4;font-weight:800;letter-spacing:-.02em}
+  .sub{color:var(--sub);font-size:15px;margin-top:6px}
+  .eyebrow{color:var(--green);font-weight:700;font-size:14px;margin-bottom:6px}
+  .lead{font-size:16px;color:var(--ink);margin-top:14px}
+  .lead+.lead{margin-top:8px}
+  /* options */
+  .opts{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+  .opt{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:12px 16px;
+    background:var(--card);border:2px solid var(--line);border-radius:16px;
+    font:inherit;font-size:17px;font-weight:600;color:var(--ink);text-align:left;cursor:pointer;
+    transition:border-color .15s,background .15s,transform .1s}
+  .opt:active{transform:scale(.98)}
+  .opt .emo{font-size:24px;line-height:1}
+  .opt .num{width:28px;height:28px;border-radius:50%;background:var(--green-soft);color:var(--green);
+    display:grid;place-items:center;font-size:14px;font-weight:800;flex:none}
+  .opt.on{border-color:var(--green);background:var(--green-soft)}
+  .opt.on .num{background:var(--green);color:#fff}
+  @media (hover:hover){.opt:hover{border-color:#B9CDB0}}
+  /* booth cards */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+  .card{position:relative;display:flex;flex-direction:column;background:var(--card);border:2px solid var(--line);
+    border-radius:18px;padding:10px 10px 12px;font:inherit;color:var(--ink);text-align:left;cursor:pointer;
+    transition:border-color .15s,background .15s,transform .1s}
+  .card:active{transform:scale(.98)}
+  .card svg{width:100%;height:auto;border-radius:12px}
+  .card b{font-size:14.5px;line-height:1.35;margin-top:8px;font-weight:700}
+  .card small{font-size:12.5px;color:var(--sub);margin-top:2px;line-height:1.35}
+  .card .tick{position:absolute;top:16px;right:16px;width:26px;height:26px;border-radius:50%;
+    background:#fff;border:2px solid var(--line);display:grid;place-items:center;color:#fff;font-size:15px;font-weight:900}
+  .card.on{border-color:var(--green);background:var(--green-soft)}
+  .card.on .tick{background:var(--green);border-color:var(--green)}
+  .card:last-child:nth-child(odd){grid-column:1/-1}
+  .card:last-child:nth-child(odd) svg{max-width:58%;align-self:center}
+  /* bottom buttons */
+  .spacer{flex:1;min-height:20px}
+  .btn{display:block;width:100%;min-height:56px;border:0;border-radius:16px;background:var(--green);color:#fff;
+    font:inherit;font-size:17px;font-weight:700;cursor:pointer;margin-top:20px;transition:opacity .15s}
+  .btn:disabled{opacity:.35;cursor:default}
+  .btn.ghost{background:none;color:var(--sub);font-weight:600;margin-top:6px;min-height:48px}
+  textarea{width:100%;min-height:130px;margin-top:18px;padding:14px 16px;border:2px solid var(--line);border-radius:16px;
+    background:var(--card);font:inherit;font-size:16px;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .hint{font-size:13px;color:var(--sub);text-align:right;margin-top:6px}
+  .sign{margin-top:18px;font-weight:700;color:var(--green)}
+  .note{font-size:12px;color:var(--sub);text-align:center;margin-top:10px}
+  .center{text-align:center}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<section id="intro" class="screen active">
-  <div class="hero">
-    <div class="badge">🌱 세종청년정책네트워크 · 직장인분과</div>
-    <h1>세종에서 사는 나에게<br>중요한 것은?</h1>
-    <p class="lead">6개의 질문으로 알아보는 나의 세종 라이프 유형.<br>가볍게 골라보고, 지금 내 삶에서 가장 필요한 것을 확인해보세요.</p>
-    <div class="mascot" aria-label="이도 느낌 캐릭터 일러스트">
-      <svg viewBox="0 0 180 180" role="img" aria-label="전통 갓을 쓴 귀여운 캐릭터">
-        <ellipse cx="90" cy="58" rx="58" ry="13" fill="#20252b"/>
-        <path d="M63 57 Q68 22 90 17 Q112 22 117 57Z" fill="#151a20"/>
-        <circle cx="90" cy="91" r="43" fill="#ffe2c6"/>
-        <circle cx="75" cy="88" r="4.8" fill="#25313b"/>
-        <circle cx="105" cy="88" r="4.8" fill="#25313b"/>
-        <path d="M80 104 Q90 112 100 104" fill="none" stroke="#b44d4d" stroke-width="4" stroke-linecap="round"/>
-        <circle cx="65" cy="100" r="7" fill="#ffb6aa" opacity=".7"/>
-        <circle cx="115" cy="100" r="7" fill="#ffb6aa" opacity=".7"/>
-        <path d="M58 128 Q90 110 122 128 L128 169 L52 169Z" fill="#2d6fb2"/>
-        <rect x="85" y="120" width="10" height="49" fill="#e8c26b"/>
-        <circle cx="90" cy="136" r="9" fill="#f3d783"/>
-      </svg>
-    </div>
-    <button class="primary" onclick="startQuiz()">테스트 시작하기 ✨</button>
-    <div class="meta">약 1분 · 총 6문항 · 정답은 없어요!</div>
+<div class="app">
+  <div class="top hide" id="top">
+    <button class="back" id="back" type="button">← 이전</button>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="count" id="count"></div>
   </div>
-</section>
-
-<section id="quiz" class="screen">
-  <div class="progress"><div id="bar"></div></div>
-  <div class="qhead"><span id="qnum">1 / 6</span><span>나에게 더 가까운 답을 골라주세요</span></div>
-  <div class="question">
-    <h2 id="qtitle"></h2>
-    <div id="answers" class="answers"></div>
-  </div>
-  <div class="nav">
-    <button class="secondary" onclick="prevQ()">이전</button>
-    <button class="primary" id="nextBtn" onclick="nextQ()" disabled>다음</button>
-  </div>
-</section>
-
-<section id="result" class="screen">
-  <div class="result" id="resultCard">
-    <div class="type" id="rType"></div>
-    <h2 id="rTitle"></h2>
-    <div class="quote" id="rQuote"></div>
-
-    <div class="result-mascot" id="resultMascot">
-      <svg viewBox="0 0 180 180" style="width:150px;height:150px;z-index:2">
-        <ellipse cx="90" cy="58" rx="58" ry="13" fill="#20252b"/>
-        <path d="M63 57 Q68 22 90 17 Q112 22 117 57Z" fill="#151a20"/>
-        <circle cx="90" cy="91" r="43" fill="#ffe2c6"/>
-        <circle cx="75" cy="88" r="4.8" fill="#25313b"/>
-        <circle cx="105" cy="88" r="4.8" fill="#25313b"/>
-        <path d="M80 104 Q90 112 100 104" fill="none" stroke="#b44d4d" stroke-width="4" stroke-linecap="round"/>
-        <circle cx="65" cy="100" r="7" fill="#ffb6aa" opacity=".7"/>
-        <circle cx="115" cy="100" r="7" fill="#ffb6aa" opacity=".7"/>
-        <path d="M58 128 Q90 110 122 128 L128 169 L52 169Z" fill="#2d6fb2"/>
-        <rect x="85" y="120" width="10" height="49" fill="#e8c26b"/>
-        <circle cx="90" cy="136" r="9" fill="#f3d783"/>
-      </svg>
-      <div class="prop" id="rProp"></div>
-    </div>
-
-    <p id="rDesc"></p>
-
-    <div class="result-grid">
-      <div class="mini"><b>내가 중요하게 보는 것</b><span id="rNeed"></span></div>
-      <div class="mini"><b>연결되는 정책 주제</b><span id="rPolicy"></span></div>
-    </div>
-
-    <div class="hashtag" id="rHash"></div>
-    <div
-      id="saveStatus"
-      style="margin-top:10px;font-size:13px;color:#6c7a89"
-      aria-live="polite"
-    ></div>
-    <div class="cta">🎁 결과 화면을 운영진에게 보여주고<br>뽑기판 1회 참여하세요!</div>
-    <button class="secondary" style="width:100%;margin-top:12px" onclick="restart()">다시 해보기</button>
-    <div class="footnote">※ 본 테스트는 행사 참여용 간이 유형테스트로, 전문적인 성향 진단이 아닙니다.</div>
-  </div>
-</section>
-
+  <main id="view"></main>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-const SUPABASE_URL = "https://bgiolxlmuewvigugdzch.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_4aw7-9k26rMUe40ewCTBpA_MbmKLrNE";
+/* ===================== 설정 =====================
+   Supabase 대시보드 > Project Settings > API 에서 복사해 넣으세요.
+   anon(public) 키 또는 publishable 키만 넣으세요. service_role/secret 키는 절대 넣지 마세요. */
+const SUPABASE_URL = "https://YOUR-PROJECT.supabase.co";
+const SUPABASE_KEY = "YOUR-ANON-OR-PUBLISHABLE-KEY";
+const TABLE = "survey_responses";
+/* ================================================ */
 
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
-  
-const types = {
-  health:{
-    label:"🥗 건강충전형",
-    title:"건강충전형",
-    quote:"잘 먹고, 잘 쉬고, 건강하게!",
-    desc:"몸과 마음이 건강해야 다른 것도 즐길 수 있다고 생각하는 당신. 세종에서의 삶에서도 건강한 식생활과 생활습관을 중요하게 보는 유형이에요.",
-    need:"건강한 식사 · 운동 · 생활습관",
-    policy:"영양 · 건강 · 생활체육",
-    hash:"#건강 #영양 #생활체육",
-    color:"#3fa55b",
-    light:"#eaf8ee",
-    prop:"🥗"
+/* ---------- 일러스트 (SVG) ---------- */
+const C = {g1:"#3E7B4F", g2:"#6FA05A", g3:"#9CC07F", g4:"#CFE0C3", g5:"#E3EEDC",
+  w1:"#D99A3D", w2:"#E6B85C", w3:"#F2D7A0", b1:"#8A6142", b2:"#B8742F", cream:"#FFFDF8", ink:"#24352A"};
+const leaf = (x,y,r,s,c) => `<path d="M0 -8C5 -4 5 4 0 8C-5 4 -5 -4 0 -8Z" transform="translate(${x} ${y}) rotate(${r}) scale(${s})" fill="${c}"/>`;
+const pine = (x,y,s,c=C.g1) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-3" y="-4" width="6" height="12" fill="${C.b1}"/><path d="M0 -50L16 -22H8L20 -2H-20L-8 -22H-16Z" fill="${c}"/></g>`;
+const tree = (x,y,s,c=C.g2) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-3.5" y="-16" width="7" height="20" rx="2" fill="${C.b1}"/><circle cx="0" cy="-30" r="20" fill="${c}"/></g>`;
+const svg = (vb, body, bg) => `<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${bg?`<rect width="100%" height="100%" fill="${bg}"/>`:""}${body}</svg>`;
+
+const ART = {
+  hero: () => svg("0 0 360 200", `
+    <circle cx="292" cy="54" r="26" fill="${C.w3}"/>
+    <path d="M0 140Q90 88 180 126T360 112V200H0Z" fill="${C.g4}"/>
+    ${pine(60,128,1.05)}${tree(104,132,1.1,C.w1)}${pine(250,118,.9,C.g2)}${tree(300,124,1.15)}
+    <path d="M0 168Q120 132 220 160T360 150V200H0Z" fill="${C.g3}"/>
+    ${tree(160,166,1.35)}${pine(210,164,1.1)}${tree(32,176,.9,C.w2)}${pine(330,170,.95)}
+    ${leaf(130,40,30,1.4,C.w1)}${leaf(186,70,-20,1.2,C.b2)}${leaf(232,34,60,1.1,C.w2)}${leaf(82,72,-50,1.1,C.w2)}`),
+
+  sprout: () => svg("0 0 240 130", `
+    <ellipse cx="120" cy="112" rx="80" ry="14" fill="${C.g4}"/>
+    <ellipse cx="120" cy="108" rx="46" ry="10" fill="${C.b1}" opacity=".85"/>
+    <path d="M120 106V62" stroke="${C.g1}" stroke-width="6" stroke-linecap="round"/>
+    <path d="M120 72C98 72 84 58 82 38C104 38 118 50 120 72Z" fill="${C.g2}"/>
+    <path d="M120 64C138 62 154 48 158 26C136 26 122 40 120 64Z" fill="${C.g3}"/>
+    ${leaf(58,40,-30,1,C.w2)}${leaf(184,70,40,1,C.w1)}`),
+
+  feet: () => {
+    const face = (x,y,s) => `<g transform="translate(${x} ${y}) scale(${s})"><circle cx="-6" cy="0" r="2.4" fill="${C.ink}"/><circle cx="6" cy="0" r="2.4" fill="${C.ink}"/><path d="M-5 6Q0 10 5 6" stroke="${C.ink}" stroke-width="2" fill="none" stroke-linecap="round"/></g>`;
+    return svg("0 0 240 130", `
+      <ellipse cx="120" cy="118" rx="96" ry="10" fill="${C.g4}"/>
+      ${tree(78,118,1.75,C.g2)}${face(78,66,1.3)}
+      ${tree(134,118,1.3,C.w1)}${face(134,80,1.1)}
+      ${tree(176,118,.95,C.g3)}${face(176,90,.9)}
+      ${leaf(40,40,-30,1.2,C.w2)}${leaf(196,40,40,1.1,C.w1)}${leaf(120,26,70,1,C.g3)}`);
   },
-  growth:{
-    label:"📚 성장레벨업형",
-    title:"성장레벨업형",
-    quote:"배우는 오늘도 나를 성장시킨다!",
-    desc:"새로운 것을 배우고 경험하면서 한 단계씩 성장하는 데 만족을 느끼는 당신. 교육, 자격증, 실무 경험 같은 기회를 중요하게 보는 유형이에요.",
-    need:"교육 · 자격증 · 새로운 경험",
-    policy:"청년교육 · 자기개발 · 역량강화",
-    hash:"#교육 #자기개발 #청년역량",
-    color:"#3478d4",
-    light:"#eaf3ff",
-    prop:"📚"
+
+  heart: () => svg("0 0 240 130", `
+    <ellipse cx="120" cy="120" rx="70" ry="8" fill="${C.g4}"/>
+    <rect x="114" y="78" width="12" height="42" rx="4" fill="${C.b1}"/>
+    <path d="M120 96C92 76 70 58 70 38C70 22 82 12 96 12C107 12 116 18 120 28C124 18 133 12 144 12C158 12 170 22 170 38C170 58 148 76 120 96Z" fill="${C.g2}"/>
+    <path d="M120 30V80M120 50L104 38M120 62L138 48" stroke="${C.g1}" stroke-width="3" stroke-linecap="round" fill="none"/>
+    ${leaf(52,70,-30,1.2,C.w1)}${leaf(190,60,30,1.2,C.w2)}${leaf(196,100,70,1,C.b2)}`),
+
+  magnify: () => svg("0 0 240 130", `
+    <ellipse cx="110" cy="118" rx="76" ry="8" fill="${C.g4}"/>
+    ${tree(82,118,1.6)}${pine(140,118,1.3)}
+    <circle cx="150" cy="56" r="30" fill="#fff" fill-opacity=".55" stroke="${C.b1}" stroke-width="7"/>
+    <path d="M172 78L196 102" stroke="${C.b1}" stroke-width="11" stroke-linecap="round"/>
+    <path d="M138 44Q144 38 152 38" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/>
+    ${leaf(36,40,-20,1,C.w2)}`),
+
+  hands: () => svg("0 0 240 130", `
+    <path d="M120 66V38" stroke="${C.g1}" stroke-width="5" stroke-linecap="round"/>
+    <path d="M120 46C104 46 94 36 92 22C108 22 118 32 120 46Z" fill="${C.g2}"/>
+    <path d="M120 40C134 40 146 30 148 14C132 14 122 24 120 40Z" fill="${C.g3}"/>
+    <ellipse cx="120" cy="70" rx="38" ry="9" fill="${C.b1}"/>
+    <path d="M60 72C70 104 98 116 120 116C142 116 170 104 180 72C162 76 140 80 120 80C100 80 78 76 60 72Z" fill="${C.w3}"/>
+    <path d="M120 82V116" stroke="${C.w2}" stroke-width="3"/>
+    <path d="M60 72C52 70 44 76 46 84C50 100 64 112 80 116" stroke="${C.w2}" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M180 72C188 70 196 76 194 84C190 100 176 112 160 116" stroke="${C.w2}" stroke-width="3" fill="none" stroke-linecap="round"/>
+    ${leaf(42,36,-40,1.1,C.w1)}${leaf(198,40,40,1.1,C.g3)}`),
+
+  flag: () => svg("0 0 240 130", `
+    <ellipse cx="120" cy="120" rx="80" ry="8" fill="${C.g4}"/>
+    <rect x="74" y="18" width="6" height="102" rx="3" fill="${C.b1}"/>
+    <path d="M80 22H150L136 44L150 66H80Z" fill="${C.g1}"/>
+    ${leaf(110,44,40,1.7,C.w3)}
+    <path d="M150 74H206A10 10 0 0 1 216 84V102A10 10 0 0 1 206 112H170L160 122V112H150A10 10 0 0 1 140 102V84A10 10 0 0 1 150 74Z" fill="${C.cream}" stroke="${C.line||'#E4DCCB'}" stroke-width="2"/>
+    <circle cx="164" cy="93" r="4" fill="${C.w1}"/><circle cx="178" cy="93" r="4" fill="${C.w1}"/><circle cx="192" cy="93" r="4" fill="${C.w1}"/>
+    ${pine(36,118,.8,C.g2)}`),
+
+  bubble: () => svg("0 0 240 130", `
+    <path d="M44 20H196A14 14 0 0 1 210 34V84A14 14 0 0 1 196 98H110L88 118V98H44A14 14 0 0 1 30 84V34A14 14 0 0 1 44 20Z" fill="${C.cream}" stroke="#E4DCCB" stroke-width="2"/>
+    <circle cx="74" cy="58" r="20" fill="${C.g5}"/>
+    ${leaf(74,58,30,1.8,C.g1)}
+    <rect x="106" y="42" width="78" height="9" rx="4.5" fill="${C.g3}"/>
+    <rect x="106" y="58" width="60" height="9" rx="4.5" fill="#E4DCCB"/>
+    <rect x="106" y="74" width="70" height="9" rx="4.5" fill="#E4DCCB"/>`),
+
+  path: () => svg("0 0 240 130", `
+    <path d="M0 96Q120 70 240 92V130H0Z" fill="${C.g4}"/>
+    ${pine(150,84,1)}${tree(184,86,1.1,C.w1)}${pine(214,88,.9,C.g2)}${tree(120,80,.85)}
+    <path d="M40 130Q100 110 146 88H160Q124 108 128 130Z" fill="${C.w3}"/>
+    <path d="M86 122L94 118M112 108L118 104M132 98L137 95" stroke="${C.b1}" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+    <circle cx="60" cy="36" r="16" fill="${C.w3}"/>
+    ${leaf(100,30,20,1.1,C.w1)}${leaf(206,30,-30,1,C.w2)}`),
+
+  letter: () => svg("0 0 240 130", `
+    <g transform="rotate(-6 120 70)">
+      <rect x="54" y="30" width="132" height="84" rx="10" fill="${C.cream}" stroke="#E4DCCB" stroke-width="2"/>
+      <path d="M58 36L120 80L182 36" stroke="#E4DCCB" stroke-width="3" fill="none" stroke-linejoin="round"/>
+      <rect x="150" y="40" width="26" height="30" rx="3" fill="${C.g5}" stroke="${C.g3}" stroke-width="2" stroke-dasharray="3 3"/>
+      ${leaf(163,55,25,1.3,C.g1)}
+    </g>
+    <path d="M196 26C190 18 178 22 182 32C184 37 196 44 196 44C196 44 208 37 210 32C214 22 202 18 196 26Z" fill="${C.w1}"/>
+    ${leaf(38,90,-30,1.1,C.w2)}`),
+
+  thanks: () => svg("0 0 360 190", `
+    <path d="M0 150Q100 112 190 140T360 128V190H0Z" fill="${C.g4}"/>
+    ${pine(56,148,1)}${tree(100,150,1.1,C.w1)}${tree(262,144,1.2)}${pine(310,140,1.05,C.g2)}
+    <path d="M0 172Q130 150 230 168T360 162V190H0Z" fill="${C.g3}"/>
+    <path d="M180 112C150 90 128 72 128 50C128 33 141 22 156 22C167 22 176 28 180 38C184 28 193 22 204 22C219 22 232 33 232 50C232 72 210 90 180 112Z" fill="${C.w1}"/>
+    ${leaf(180,64,0,2.2,C.cream)}
+    ${leaf(110,44,30,1.3,C.w2)}${leaf(256,58,-40,1.3,C.g2)}${leaf(80,90,-60,1.1,C.b2)}${leaf(290,96,50,1.1,C.w2)}`),
+
+  /* ---- 체험부스 ---- */
+  lion: () => {
+    let mane = "";
+    const cols = [C.w1, C.b2, C.w2, C.b1];
+    for (let i = 0; i < 20; i++) { const a = i/20*Math.PI*2; mane += leaf(100+Math.cos(a)*44, 76+Math.sin(a)*42, a*180/Math.PI+90, 2.3, cols[i%4]); }
+    for (let i = 0; i < 16; i++) { const a = (i+.5)/16*Math.PI*2; mane += leaf(100+Math.cos(a)*34, 76+Math.sin(a)*32, a*180/Math.PI+90, 1.8, cols[(i+2)%4]); }
+    return svg("0 0 200 150", `${mane}
+      <circle cx="80" cy="52" r="8" fill="${C.w2}"/><circle cx="120" cy="52" r="8" fill="${C.w2}"/>
+      <circle cx="100" cy="78" r="29" fill="${C.w3}"/>
+      <circle cx="90" cy="72" r="3.4" fill="${C.ink}"/><circle cx="110" cy="72" r="3.4" fill="${C.ink}"/>
+      <ellipse cx="100" cy="88" rx="13" ry="10" fill="${C.cream}"/>
+      <path d="M94 82H106L100 89Z" fill="${C.b1}" stroke="${C.b1}" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M100 89V93M93 94Q100 99 107 94" stroke="${C.b1}" stroke-width="2" fill="none" stroke-linecap="round"/>`, C.g5);
   },
-  home:{
-    label:"🏠 내집안정형",
-    title:"내집안정형",
-    quote:"든든한 집, 안정된 생활이 먼저!",
-    desc:"안정적인 생활 기반이 있어야 마음 편히 미래를 계획할 수 있다고 생각하는 당신. 주거비 부담과 쾌적한 주거환경을 중요하게 보는 유형이에요.",
-    need:"안정적인 집 · 주거비 부담 완화",
-    policy:"주거 · 주거복지 · 정착지원",
-    hash:"#주거 #주거복지 #안정",
-    color:"#eb8a2f",
-    light:"#fff3e7",
-    prop:"🏠"
+  banner: () => {
+    const cols = [C.g1, C.g2, C.w1, C.g3, C.w2, C.g2, C.g1, C.w1];
+    const pos = [[62,74,-20],[90,92,30],[118,70,10],[146,90,-30],[74,100,60],[132,104,-60],[104,108,0],[154,68,40]];
+    return svg("0 0 200 150", `
+      <rect x="0" y="120" width="200" height="30" fill="${C.g4}"/>
+      <rect x="30" y="20" width="6" height="110" rx="3" fill="${C.b1}"/><rect x="164" y="20" width="6" height="110" rx="3" fill="${C.b1}"/>
+      <rect x="36" y="30" width="128" height="86" rx="4" fill="${C.cream}" stroke="#E4DCCB" stroke-width="2"/>
+      <rect x="58" y="40" width="84" height="12" rx="6" fill="${C.g1}"/>
+      ${pos.map((p,i)=>leaf(p[0],p[1],p[2],1.9,cols[i])).join("")}`, C.g5);
   },
-  balance:{
-    label:"🌿 워라밸행복형",
-    title:"워라밸행복형",
-    quote:"일도 중요하지만, 내 삶도 중요해!",
-    desc:"열심히 일하는 만큼 충분히 쉬고 즐기는 것도 중요하다고 생각하는 당신. 문화, 여가, 휴식과 일·생활 균형을 중시하는 유형이에요.",
-    need:"여가 · 휴식 · 문화생활",
-    policy:"워라밸 · 문화여가 · 휴식지원",
-    hash:"#워라밸 #여가 #문화생활",
-    color:"#e95c91",
-    light:"#fff0f6",
-    prop:"☕"
+  brush: () => svg("0 0 200 150", `
+    <g transform="rotate(-4 100 75)">
+      <rect x="34" y="18" width="112" height="118" rx="4" fill="#FBF6EA" stroke="#E4DCCB" stroke-width="2"/>
+      <path d="M58 116C70 92 86 72 118 46" stroke="${C.ink}" stroke-width="5" fill="none" stroke-linecap="round"/>
+      ${leaf(84,72,-70,2.4,C.ink)}${leaf(102,92,-150,2,C.ink)}${leaf(112,52,-40,1.8,C.ink)}${leaf(70,96,-110,1.6,C.ink)}
+      <rect x="124" y="112" width="12" height="12" rx="1" fill="${C.w1}"/>
+    </g>
+    <g transform="translate(150 58) rotate(35)">
+      <rect x="-5" y="-50" width="10" height="62" rx="4" fill="${C.b2}"/>
+      <rect x="-6" y="8" width="12" height="8" fill="${C.w2}"/>
+      <path d="M-6 16C-6 30 0 40 0 40C0 40 6 30 6 16Z" fill="${C.ink}"/>
+    </g>`, C.g5),
+  timer: () => {
+    let ticks = "";
+    for (let i = 0; i < 12; i++) { const a = i/12*Math.PI*2; ticks += `<line x1="${100+Math.cos(a)*36}" y1="${84+Math.sin(a)*36}" x2="${100+Math.cos(a)*40}" y2="${84+Math.sin(a)*40}" stroke="#E4DCCB" stroke-width="3" stroke-linecap="round"/>`; }
+    return svg("0 0 200 150", `
+      <rect x="92" y="24" width="16" height="12" rx="3" fill="${C.b1}"/>
+      <rect x="138" y="40" width="12" height="9" rx="3" fill="${C.b1}" transform="rotate(40 144 44)"/>
+      <circle cx="100" cy="84" r="48" fill="#fff" stroke="${C.g1}" stroke-width="7"/>
+      ${ticks}
+      <text x="100" y="94" text-anchor="middle" font-size="28" font-weight="800" fill="${C.ink}" font-family="Pretendard,sans-serif">9.21</text>
+      <text x="100" y="112" text-anchor="middle" font-size="11" font-weight="700" fill="${C.g1}" font-family="Pretendard,sans-serif">SEC</text>
+      ${leaf(34,40,-30,1.6,C.w1)}${leaf(168,110,40,1.6,C.w2)}${leaf(30,112,60,1.3,C.g2)}${leaf(172,30,-60,1.3,C.g3)}`, C.g5);
   },
-  connect:{
-    label:"🤝 관계연결형",
-    title:"관계연결형",
-    quote:"함께라서 더 즐거운 세종!",
-    desc:"좋은 사람들과 연결되고 함께 경험하는 것에서 에너지를 얻는 당신. 친구, 이웃, 커뮤니티와의 관계를 중요하게 보는 유형이에요.",
-    need:"친구 · 이웃 · 커뮤니티",
-    policy:"청년 네트워크 · 커뮤니티 · 참여",
-    hash:"#커뮤니티 #네트워크 #연결",
-    color:"#8057c7",
-    light:"#f2edff",
-    prop:"🤝"
-  }
+  friends: () => svg("0 0 200 150", `
+    <g transform="translate(100 66) rotate(-8)">
+      <path d="M-6 30Q-14 52 0 62Q14 52 6 30Z" fill="${C.b2}"/>
+      <path d="M-40 -14Q-26 -20 -12 -16H12Q26 -20 40 -14Q34 8 42 32Q24 26 10 30H-10Q-24 26 -42 32Q-34 8 -40 -14Z" fill="#D9BC94"/>
+      <circle cx="-40" cy="-14" r="4.5" fill="#A8845A"/><circle cx="40" cy="-14" r="4.5" fill="#A8845A"/>
+      <circle cx="-42" cy="32" r="4.5" fill="#A8845A"/><circle cx="42" cy="32" r="4.5" fill="#A8845A"/>
+      <ellipse cx="0" cy="8" rx="15" ry="24" fill="#BF9D72"/>
+      <ellipse cx="0" cy="12" rx="9" ry="16" fill="${C.cream}"/>
+      <path d="M-13 -30L-11 -42L-3 -34ZM13 -30L11 -42L3 -34Z" fill="#BF9D72"/>
+      <circle cx="0" cy="-22" r="15" fill="#BF9D72"/>
+      <circle cx="-6" cy="-23" r="4.6" fill="${C.ink}"/><circle cx="6" cy="-23" r="4.6" fill="${C.ink}"/>
+      <circle cx="-4.6" cy="-24.6" r="1.5" fill="#fff"/><circle cx="7.4" cy="-24.6" r="1.5" fill="#fff"/>
+      <ellipse cx="0" cy="-15.5" rx="2" ry="1.5" fill="${C.b1}"/>
+    </g>
+    <g transform="translate(34 128) rotate(-120) scale(.75)">
+      <rect x="-5" y="-34" width="10" height="56" fill="${C.g2}"/><path d="M-5 22H5L0 34Z" fill="${C.w3}"/><path d="M-2 29H2L0 34Z" fill="${C.g1}"/>
+    </g>
+    <g transform="translate(170 128) rotate(120) scale(.75)">
+      <rect x="-5" y="-34" width="10" height="56" fill="${C.w1}"/><path d="M-5 22H5L0 34Z" fill="${C.w3}"/><path d="M-2 29H2L0 34Z" fill="${C.b2}"/>
+    </g>
+    ${leaf(30,30,-30,1.3,C.g2)}${leaf(172,28,40,1.3,C.w2)}`, C.g5),
 };
 
-const questions = [
-  {
-    q:"세종에서 내 하루가 딱 하나 더 좋아진다면?",
-    a:[
-      ["건강하게 먹고 운동할 수 있는 환경","health","🥗"],
-      ["배우고 도전할 기회가 더 많아졌으면","growth","📚"],
-      ["주거비 부담이 줄고 안정적으로 살 수 있으면","home","🏠"],
-      ["퇴근 후 쉴 시간과 즐길 거리가 더 많으면","balance","🌿"],
-      ["새로운 사람들과 자연스럽게 만날 수 있으면","connect","🤝"]
-    ]
-  },
-  {
-    q:"뜻밖에 자유시간 1시간이 생겼다! 나는?",
-    a:[
-      ["운동하거나 산책하며 컨디션을 챙긴다","health","🏃"],
-      ["미뤄둔 공부나 관심 분야를 찾아본다","growth","💡"],
-      ["집 정리나 생활비 계획처럼 생활 기반을 챙긴다","home","🧾"],
-      ["카페, 전시, 드라마 등 그냥 푹 쉰다","balance","☕"],
-      ["친구에게 연락하거나 모임을 찾아본다","connect","💬"]
-    ]
-  },
-  {
-    q:"세종시에서 한 가지 지원을 받을 수 있다면?",
-    a:[
-      ["건강한 식생활·운동 지원","health","🥬"],
-      ["교육비·자격증·직무교육 지원","growth","🎓"],
-      ["월세·주거비·청년주택 지원","home","🔑"],
-      ["문화·여가·휴식 프로그램 지원","balance","🎟️"],
-      ["청년 모임·커뮤니티 활동 지원","connect","🫶"]
-    ]
-  },
-  {
-    q:"여윳돈 10만 원이 생기면 가장 먼저 하고 싶은 것은?",
-    a:[
-      ["건강식, 운동, 몸 관리에 쓴다","health","💪"],
-      ["책, 강의, 자격증 등에 투자한다","growth","🧠"],
-      ["저축하거나 주거·생활비에 보탠다","home","💰"],
-      ["맛있는 것 먹고 문화생활하며 쉰다","balance","🎬"],
-      ["친구나 가족과 함께 시간을 보낸다","connect","🍽️"]
-    ]
-  },
-  {
-    q:"내가 생각하는 '살기 좋은 세종'에 가장 가까운 모습은?",
-    a:[
-      ["건강하게 생활하기 좋은 도시","health","🌱"],
-      ["배움과 도전 기회가 많은 도시","growth","🚀"],
-      ["오래 정착해서 살기 좋은 도시","home","🏡"],
-      ["일과 삶의 균형을 누릴 수 있는 도시","balance","🌇"],
-      ["사람들이 서로 연결되는 따뜻한 도시","connect","👥"]
-    ]
-  },
-  {
-    q:"1년 뒤, 지금보다 가장 좋아졌으면 하는 것은?",
-    a:[
-      ["내 몸과 마음의 건강","health","❤️"],
-      ["나의 능력과 커리어","growth","📈"],
-      ["주거와 경제적 안정","home","🛋️"],
-      ["삶의 여유와 행복감","balance","🌼"],
-      ["좋은 사람들과의 관계","connect","🧑‍🤝‍🧑"]
-    ]
-  }
+/* ---------- 문항 ---------- */
+const AGREE = [[5,"매우 그렇다"],[4,"그렇다"],[3,"보통이다"],[2,"그렇지 않다"],[1,"전혀 그렇지 않다"]];
+const QUESTIONS = [
+  {id:"age_group", type:"single", art:"sprout", title:"어느 연령대이신가요?",
+    options:["10대 이하","20대","30대","40대","50대","60대 이상"]},
+  {id:"companion", type:"single", art:"feet", title:"오늘 누구와 함께 오셨나요?",
+    options:["혼자 왔어요","가족과 함께","친구·연인과 함께","동호회·단체와 함께","기타"]},
+  {id:"booths", type:"multi", title:"어떤 숲속 체험을 즐기셨나요?", sub:"해 본 체험을 모두 골라주세요.",
+    options:[
+      {v:"숲속에 나타난 거대한 사자", d:"낙엽으로 사자 갈기 만들기", art:"lion"},
+      {v:"금강수목원을 시민의 숲으로", d:"응원 메시지 현수막", art:"banner"},
+      {v:"붓끝에 피어나는 숲", d:"캘리그라피 작품 받기", art:"brush"},
+      {v:"9.21초, 다시 시작된 시간", d:"타이머 챌린지", art:"timer"},
+      {v:"금강수목원의 숲속 친구들", d:"담비·날다람쥐 색칠", art:"friends"}]},
+  {id:"satisfaction", type:"scale", art:"heart", title:"오늘 체험, 얼마나 즐거우셨나요?",
+    options:[[5,"최고예요!","😍"],[4,"좋았어요","😊"],[3,"괜찮았어요","🙂"],[2,"조금 아쉬워요","😐"],[1,"많이 아쉬워요","😢"]]},
+  {id:"news_awareness", type:"scale", art:"magnify", title:"금강수목원 소식, 어디까지 알고 계셨나요?",
+    sub:"오늘 오기 전을 떠올리며 골라주세요.",
+    options:[[4,"문을 닫았다가, 시민들의 꾸준한 노력으로 다시 열린 것까지 알았어요","🌳"],
+             [3,"문을 닫았던 것까지만 알았어요","🍂"],
+             [2,"이름만 들어봤어요","🌱"],
+             [1,"오늘 처음 알았어요","👀"]]},
+  {id:"story_learned", type:"scale", art:"bubble", title:"오늘 체험으로 금강수목원 이야기를 더 알게 되셨나요?", options:AGREE},
+  {id:"conservation", type:"scale", art:"hands", title:"우리의 숲, 더 소중히 지키고 싶어졌나요?",
+    sub:"오늘 체험으로 금강수목원을 지켜야겠다는 생각이 더 커졌나요?", options:AGREE},
+  {id:"syd_awareness", type:"single", art:"flag", title:"‘세종청년도슨트’를 알고 계셨나요?",
+    options:["원래 알고 있었어요!","오늘 처음 알게 됐어요!"]},
+  {id:"syd_understanding", type:"scale", art:"bubble", title:"오늘 체험으로 세종청년도슨트가 어떤 활동을 하는지 알게 되셨나요?", options:AGREE},
+  {id:"revisit", type:"scale", art:"path", title:"금강수목원에 다시 오고 싶으신가요?",
+    options:[[5,"꼭 다시 올래요!"],[4,"오고 싶어요"],[3,"아직 모르겠어요"],[2,"별로 생각 없어요"],[1,"다시 올 생각이 없어요"]]},
+  {id:"comment", type:"text", art:"letter", title:"마지막으로 한마디!",
+    sub:"오늘 가장 좋았던 점이나 다음에 바라는 점을 알려주세요. (선택)"},
 ];
 
-let idx=0;
-let selected=Array(questions.length).fill(null);
+/* ---------- 상태 ---------- */
+let step = -1;            // -1 = 시작 화면, QUESTIONS.length = 끝 화면
+let answers = {};
+let busy = false;
+const view = document.getElementById("view");
+const $top = document.getElementById("top"), $back = document.getElementById("back");
+const $bar = document.getElementById("bar"), $count = document.getElementById("count");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-function show(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  window.scrollTo({top:0,behavior:"smooth"});
+function go(next, reverse=false){
+  const old = view.firstElementChild;
+  const render = () => { step = next; draw(reverse); window.scrollTo(0,0); busy = false; };
+  if (old && !matchMedia("(prefers-reduced-motion: reduce)").matches){ old.classList.add("out"); setTimeout(render, 170); }
+  else render();
 }
-function startQuiz(){ show("quiz"); renderQ(); }
-function renderQ(){
-  const q=questions[idx];
-  document.getElementById("qnum").textContent=(idx+1)+" / "+questions.length;
-  document.getElementById("bar").style.width=((idx+1)/questions.length*100)+"%";
-  document.getElementById("qtitle").textContent=q.q;
-  const box=document.getElementById("answers");
-  box.innerHTML="";
-  q.a.forEach((a,i)=>{
-    const btn=document.createElement("button");
-    btn.className="answer"+(selected[idx]===i?" selected":"");
-    btn.innerHTML='<span class="emoji">'+a[2]+'</span><span>'+a[0]+'</span>';
-    btn.onclick=()=>{selected[idx]=i;renderQ();};
-    box.appendChild(btn);
-  });
-  document.getElementById("nextBtn").disabled=selected[idx]===null;
-  document.getElementById("nextBtn").textContent=idx===questions.length-1?"결과 보기":"다음";
-}
-function nextQ(){
-  if(selected[idx]===null)return;
-  if(idx<questions.length-1){idx++;renderQ();}else{calcResult();}
-}
-function prevQ(){ if(idx>0){idx--;renderQ();}else{show("intro");} }
 
-async function calcResult(){
-  const score={health:0,growth:0,home:0,balance:0,connect:0};
-  selected.forEach((s,qi)=>{
-    const key=questions[qi].a[s][1];
-    score[key]+=1;
-  });
-  const max=Math.max(...Object.values(score));
-  let tied=Object.keys(score).filter(k=>score[k]===max);
-  let winner=tied[0];
+function draw(reverse){
+  const n = QUESTIONS.length;
+  const inQ = step >= 0 && step < n;
+  $top.classList.toggle("hide", !inQ);
+  $back.classList.toggle("show", step > 0 && inQ);
+  if (inQ){ $bar.style.width = ((step)/n*100)+"%"; $count.textContent = `${step+1} / ${n}`; }
+  let html = "";
+  if (step < 0) html = startHTML();
+  else if (step >= n) html = endHTML();
+  else html = questionHTML(QUESTIONS[step]);
+  view.innerHTML = `<section class="screen${reverse?" rev":""}">${html}</section>`;
+  bind();
+}
 
-  // 동점이면 마지막 문항부터 거꾸로 보며, 동점 후보 중 최근 선택된 유형을 우선
-  if(tied.length>1){
-    for(let i=questions.length-1;i>=0;i--){
-      const k=questions[i].a[selected[i]][1];
-      if(tied.includes(k)){winner=k;break;}
-    }
+function startHTML(){
+  return `
+    <div class="art hero">${ART.hero()}</div>
+    <p class="eyebrow">2026 금강수목원 숲속문화제 체험부스 만족도 조사</p>
+    <h1>오늘 숲속에서<br>어떠셨나요? 🌿</h1>
+    <p class="lead">9월 21일, 금강수목원이 다시 문을 열었어요! 이 기쁜 소식을 시민 여러분과 함께 나누려고 세종청년도슨트가 체험부스를 준비했습니다.</p>
+    <p class="lead">딱 2분! 답을 누르면 바로 다음 질문으로 넘어가요.</p>
+    <div class="spacer"></div>
+    <button class="btn" data-act="start">시작하기</button>`;
+}
+
+function endHTML(){
+  return `
+    <div class="art hero">${ART.thanks()}</div>
+    <h1 class="center">참여해 주셔서<br>감사합니다! 🌿</h1>
+    <p class="lead center">금강수목원에 앞으로도 자주 방문해 주세요!<br>우리 지역의 소중한 이야기를 계속 전하겠습니다.</p>
+    <p class="sign center">– 세종청년도슨트</p>
+    <div class="spacer"></div>
+    ${configured() ? "" : `<p class="note">데모 모드: Supabase 설정 전이라 응답이 저장되지 않았어요.</p>`}
+    <button class="btn ghost" data-act="restart">처음으로</button>`;
+}
+
+function questionHTML(q){
+  const a = answers[q.id];
+  let head = `${q.art ? `<div class="art">${ART[q.art]()}</div>` : ""}
+    ${q.chip ? `<span class="chip">${q.chip}</span>` : ""}
+    <h2>${q.title}</h2>${q.sub ? `<p class="sub">${q.sub}</p>` : ""}`;
+  if (q.type === "single"){
+    return head + `<div class="opts">${q.options.map(o =>
+      `<button class="opt${a===o?" on":""}" data-v="${esc(o)}">${esc(o)}</button>`).join("")}</div>`;
   }
-  renderResult(winner);
-  await saveSurveyResponse(winner,score);
-}
-
-async function saveSurveyResponse(winner,score){
-  const statusEl=document.getElementById("saveStatus");
-  statusEl.textContent="응답을 저장하는 중입니다...";
-  statusEl.style.color="#6c7a89";
-
-  // 기존 DB의 answers 열에 Q1~Q6의 상세 응답을 배열로 저장
-  const answerDetails=selected.map((answerIndex,questionIndex)=>{
-    const question=questions[questionIndex];
-    const answer=question.a[answerIndex];
-
-    return {
-      question_no:questionIndex+1,
-      question_text:question.q,
-      answer_index:answerIndex,
-      answer_text:answer[0],
-      selected_type:answer[1]
-    };
-  });
-
-  try{
-    const {error}=await db
-      .from("survey_responses")
-      .insert({
-        survey_id:"sejong-life-2026",
-        result_type:winner,
-        answers:answerDetails,
-        scores:score
-      });
-
-    if(error)throw error;
-
-    statusEl.textContent="✓ 응답이 정상적으로 저장되었습니다.";
-    statusEl.style.color="#3fa55b";
-  }catch(error){
-    console.error("Supabase 저장 오류:",error);
-    statusEl.textContent="응답 저장에 실패했습니다. 운영진에게 말씀해주세요.";
-    statusEl.style.color="#d94848";
+  if (q.type === "scale"){
+    return head + `<div class="opts">${q.options.map(([v,l,e]) =>
+      `<button class="opt${a===v?" on":""}" data-v="${v}">${e?`<span class="emo">${e}</span>`:`<span class="num">${v}</span>`}${esc(l)}</button>`).join("")}</div>`;
+  }
+  if (q.type === "multi"){
+    const sel = a || [];
+    return head + `<div class="grid">${q.options.map(o =>
+      `<button class="card${sel.includes(o.v)?" on":""}" data-m="${esc(o.v)}" aria-pressed="${sel.includes(o.v)}">
+        <span class="tick">✓</span>${ART[o.art]()}<b>${esc(o.v)}</b><small>${esc(o.d)}</small></button>`).join("")}</div>
+      <div class="spacer"></div>
+      <button class="btn" data-act="next" ${sel.length?"":"disabled"}>다음</button>`;
+  }
+  if (q.type === "text"){
+    return head + `<textarea id="txt" maxlength="500" placeholder="자유롭게 적어주세요">${esc(a||"")}</textarea>
+      <p class="hint"><span id="len">${(a||"").length}</span>/500</p>
+      <div class="spacer"></div>
+      <button class="btn" data-act="submit">제출하기</button>`;
   }
 }
 
-function renderResult(key){
-  const r=types[key];
-  document.getElementById("rType").textContent=r.label;
-  document.getElementById("rType").style.background=r.light;
-  document.getElementById("rType").style.color=r.color;
-  document.getElementById("rTitle").textContent=r.title;
-  document.getElementById("rQuote").textContent="“"+r.quote+"”";
-  document.getElementById("rDesc").textContent=r.desc;
-  document.getElementById("rNeed").textContent=r.need;
-  document.getElementById("rPolicy").textContent=r.policy;
-  document.getElementById("rHash").textContent=r.hash;
-  document.getElementById("rHash").style.color=r.color;
-  document.getElementById("rProp").textContent=r.prop;
-  document.getElementById("resultMascot").style.background="linear-gradient(145deg,"+r.light+",#ffffff)";
-  document.getElementById("resultCard").style.borderColor=r.color+"55";
-  show("result");
+function bind(){
+  const q = QUESTIONS[step];
+  view.querySelectorAll("[data-v]").forEach(b => b.addEventListener("click", () => {
+    if (busy) return; busy = true;
+    const v = q.type === "scale" ? Number(b.dataset.v) : b.dataset.v;
+    answers[q.id] = v;
+    view.querySelectorAll(".opt").forEach(x => x.classList.toggle("on", x === b));
+    setTimeout(() => go(step+1), 260);
+  }));
+  view.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => {
+    const sel = new Set(answers[q.id] || []);
+    sel.has(b.dataset.m) ? sel.delete(b.dataset.m) : sel.add(b.dataset.m);
+    answers[q.id] = q.options.map(o => o.v).filter(v => sel.has(v));
+    b.classList.toggle("on"); b.setAttribute("aria-pressed", sel.has(b.dataset.m));
+    view.querySelector('[data-act="next"]').disabled = sel.size === 0;
+  }));
+  const txt = document.getElementById("txt");
+  if (txt) txt.addEventListener("input", () => { answers.comment = txt.value; document.getElementById("len").textContent = txt.value.length; });
+  view.querySelectorAll("[data-act]").forEach(b => b.addEventListener("click", () => {
+    const act = b.dataset.act;
+    if (busy) return;
+    if (act === "start") { busy = true; go(0); }
+    if (act === "next") { busy = true; go(step+1); }
+    if (act === "submit") { busy = true; b.disabled = true; b.textContent = "보내는 중…"; submit().finally(() => go(QUESTIONS.length)); }
+    if (act === "restart") { answers = {}; busy = true; go(-1); }
+  }));
 }
-function restart(){
-  idx=0;
-  selected=Array(questions.length).fill(null);
-  const statusEl=document.getElementById("saveStatus");
-  statusEl.textContent="";
-  statusEl.style.color="#6c7a89";
-  show("intro");
+
+$back.addEventListener("click", () => { if (!busy && step > 0){ busy = true; go(step-1, true); } });
+
+/* ---------- 저장 (Supabase REST) ---------- */
+const configured = () => !SUPABASE_URL.includes("YOUR-PROJECT") && !SUPABASE_KEY.startsWith("YOUR-");
+const QUEUE_KEY = "gk_survey_pending";
+const loadQueue = () => { try { return JSON.parse(localStorage.getItem(QUEUE_KEY) || "[]"); } catch(e){ return []; } };
+const saveQueue = q => { try { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); } catch(e){} };
+
+async function post(row){
+  const headers = {"Content-Type":"application/json", "apikey":SUPABASE_KEY, "Prefer":"return=minimal"};
+  if (SUPABASE_KEY.startsWith("eyJ")) headers["Authorization"] = "Bearer " + SUPABASE_KEY; // 기존 anon(JWT) 키
+  const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 10000);
+  try {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {method:"POST", headers, body:JSON.stringify(row), signal:ctrl.signal});
+    if (r.status === 409) return; // 이미 저장된 응답(재시도 중복) → 성공으로 처리
+    if (!r.ok) throw new Error(r.status + " " + await r.text());
+  } finally { clearTimeout(t); }
 }
+
+async function flushQueue(){
+  if (!configured()) return;
+  let q = loadQueue(); if (!q.length) return;
+  const left = [];
+  for (const row of q){ try { await post(row); } catch(e){ left.push(row); } }
+  saveQueue(left);
+}
+
+async function submit(){
+  const row = {
+    age_group: answers.age_group, companion: answers.companion, booths: answers.booths || [],
+    satisfaction: answers.satisfaction, news_awareness: answers.news_awareness, story_learned: answers.story_learned,
+    conservation: answers.conservation, syd_awareness: answers.syd_awareness,
+    syd_understanding: answers.syd_understanding, revisit: answers.revisit,
+    comment: (answers.comment || "").trim() || null,
+    client_id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random()),
+  };
+  if (!configured()){ console.log("[데모 모드] 저장될 응답:", row); return; }
+  try { await post(row); }
+  catch(e){ console.warn("전송 실패, 기기에 보관 후 재시도:", e); const q = loadQueue(); q.push(row); saveQueue(q); }
+  flushQueue();
+}
+
+window.addEventListener("online", flushQueue);
+flushQueue();
+draw(false);
 </script>
 </body>
 </html>
