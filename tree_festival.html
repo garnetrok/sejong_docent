@@ -1,0 +1,188 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1f6b55"><title>산해진미 트리축제 | 세종청년도슨트 만족도 조사</title><style>
+:root{--green:#1f6b55;--green-dark:#154d3c;--ink:#1f2d28;--muted:#586a62;--bg:#faf7ef;--soft:#e6f2ea;--line:#d6ddd2;--red:#b83a48}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:18px;line-height:1.55;word-break:keep-all;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:4px solid #e0a526;outline-offset:3px}
+button:disabled{opacity:.4;cursor:default}
+.app{max-width:520px;min-height:100vh;min-height:100svh;margin:auto;padding:max(14px,env(safe-area-inset-top)) 20px max(24px,env(safe-area-inset-bottom));display:flex;flex-direction:column}
+
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.back{min-height:48px;padding:0 18px;border:2px solid var(--line);border-radius:999px;background:#fff;color:var(--green-dark);font-weight:800;font-size:16px}
+.count{font-size:18px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--green-dark)}
+.track{height:14px;margin:10px 0 20px;border-radius:999px;background:#e3e8de;overflow:hidden}
+.fill{height:100%;border-radius:999px;background:var(--green);transition:width .3s}
+
+/* illustration card */
+.scene{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:22px;padding:14px 16px;border-radius:28px;background:#286b59;color:#fff;text-align:center}
+.scene .art svg{display:block;width:150px;height:82px}
+.scene small{display:inline-block;padding:3px 16px;border-radius:999px;background:#fff6dc;color:#1f4d3f;font-size:15px;font-weight:800}
+.hero{padding:20px 14px 16px}
+.hero svg{display:block;width:100%;max-width:320px;height:auto}
+
+/* text */
+.kicker{margin-bottom:6px;color:var(--red);font-size:15px;font-weight:800}
+h1{margin:0 0 12px;font-size:34px;line-height:1.3;letter-spacing:-.04em}
+h2{margin:0 0 8px;font-size:27px;line-height:1.4;letter-spacing:-.03em}
+p{margin:8px 0;color:var(--muted)}
+.hint{font-size:17px;font-weight:700;color:var(--green-dark)}
+.center{text-align:center}
+.note{margin:16px 0;padding:14px 16px;border:2px solid var(--line);border-radius:18px;background:#fff;color:var(--muted);font-size:15px;line-height:1.7}
+.error{color:#a02332;font-weight:800}
+
+/* options */
+.opts{display:grid;gap:12px;margin:20px 0 8px}
+.option{display:flex;align-items:center;gap:14px;width:100%;min-height:74px;padding:14px 16px;border:3px solid var(--line);border-radius:22px;background:#fff;color:var(--ink);font-size:20px;font-weight:800;line-height:1.35;text-align:left;box-shadow:0 4px 0 var(--line);transition:transform .1s,box-shadow .1s,background .1s}
+.option:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.option.selected{border-color:var(--green);background:var(--soft);box-shadow:0 4px 0 var(--green)}
+.option.selected:active{box-shadow:0 1px 0 var(--green)}
+.option.none{margin-top:8px;border-style:dashed;background:transparent;box-shadow:none}
+.option.none.selected{border-style:solid;background:var(--soft)}
+.mark{display:grid;place-items:center;flex:none;width:30px;height:30px;border:3px solid #9fb3a8;border-radius:50%;background:#fff}
+.mark.box{border-radius:9px}
+.mark svg{width:18px;height:18px;opacity:0}
+.selected .mark{background:var(--green);border-color:var(--green)}
+.selected .mark svg{opacity:1}
+.num{display:grid;place-items:center;flex:none;width:58px;height:48px;border-radius:14px;background:#edf0e8;color:var(--ink);font-size:20px;font-weight:900}
+.selected .num{background:var(--green);color:#fff}
+.label{flex:1}
+
+/* buttons */
+.primary{width:100%;min-height:64px;margin-top:14px;padding:12px;border:0;border-radius:22px;background:var(--green);color:#fff;font-size:21px;font-weight:900;box-shadow:0 5px 0 var(--green-dark)}
+.primary:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--green-dark)}
+.secondary{width:100%;min-height:54px;margin-top:14px;border:2px solid var(--line);border-radius:18px;background:#fff;color:var(--green-dark);font-size:17px;font-weight:800}
+.foot{margin-top:auto;padding-top:26px;text-align:center;font-size:13px;color:var(--muted)}
+
+.screen{animation:appear .25s ease-out}
+@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(max-height:700px){.scene{margin-bottom:14px}.scene .art svg{height:60px}.option{min-height:62px;padding:10px 14px}.opts{gap:10px}}
+.snow{position:fixed;inset:0;z-index:5;overflow:hidden;pointer-events:none}
+.flake{position:absolute;top:-20px;border-radius:50%;background:#fff;border:1px solid #a9c7da;opacity:.9;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(var(--dx),55vh,0)}100%{transform:translate3d(calc(var(--dx)*-1),115vh,0)}}
+@media(prefers-reduced-motion:reduce){.snow{display:none}}
+[hidden]{display:none!important}
+</style></head><body><div class="app"><header id="header" hidden><div class="top"><button class="back" id="back" type="button">이전</button><span class="count" id="count"></span></div><div class="track" role="progressbar" aria-label="설문 진행률" aria-valuemin="0" aria-valuemax="100" id="progress"><div class="fill" id="fill"></div></div></header><main id="view" aria-live="polite"></main><footer class="foot">세종청년도슨트 · 2026 산해진미 트리축제</footer></div><script>
+// Supabase REST API: public publishable key only.
+const SUPABASE_URL = "https://uwddnunwclrrrwzbatyo.supabase.co";
+const SUPABASE_KEY = "sb_publishable_DuJvW8Qnfq0xVo1-_QiL3Q_9eNVJ4_s";
+const TABLE = "tree_festival_responses";
+const CHECK='<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const programs=[['rudolph','종이 루돌프 만들기'],['tour','우리 동네 탐험(마법의 단어를 찾아라!)'],['pen','크리스마스 볼펜 꾸미기']];
+const agree=[[5,'매우 그래요'],[4,'그래요'],[3,'보통이에요'],[2,'별로 그렇지 않아요'],[1,'전혀 그렇지 않아요']];
+const satisfy=[[5,'아주 만족'],[4,'만족'],[3,'보통'],[2,'불만족'],[1,'매우 불만족']];
+// tour: shown only if the tour program was joined. any: shown only if at least one program was joined.
+const Q=[
+{id:'age',g:'기본 정보',q:'귀하는 어디에 해당하나요?',o:[['child','어린이(13세 이하)'],['teen','청소년(14~19세)'],['adult','성인(성인 참여)'],['parent','성인(자녀 동반 참여)']]},
+{id:'residence',g:'기본 정보',q:'현재 어디에 살고 있나요?',o:[['haemil','해밀동'],['sanul','산울동'],['sejong','세종시 내 다른 지역'],['outside','세종시 외 지역']]},
+{id:'channel',g:'기본 정보',q:'어떻게 프로그램을 알게 되었나요?',o:[['poster','실물 포스터'],['carrot','당근마켓'],['sns','SNS(카카오톡 등)'],['friend','지인 추천'],['other','기타']]},
+{id:'programs',g:'참여 현황',q:'오늘 어떤 체험에 참여했나요?',o:[...programs,['none','프로그램에 참가하지 않음']],multi:true},
+{id:'clarity',g:'도슨트 평가',q:'도슨트 선생님의 설명은 이해하기 쉬웠나요?',o:agree,scale:true,tour:true},
+{id:'interest',g:'도슨트 평가',q:'도슨트 선생님의 설명은 재미있었나요?',o:agree,scale:true,tour:true},
+{id:'before',g:'우리 동네 탐험',q:'체험 전, 해밀동·산울동에 대해 얼마나 알고 있었나요?',o:[[3,'잘 알고 있었어요'],[2,'조금 알고 있었어요'],[1,'거의 몰랐어요']],scale:true,tour:true},
+{id:'after',g:'우리 동네 탐험',q:'체험 후, 지금은 해밀동·산울동에 대해 얼마나 알고 있나요?',o:[[3,'잘 알고 있어요'],[2,'조금 알고 있어요'],[1,'거의 몰라요']],scale:true,tour:true},
+{id:'explore',g:'우리 동네 탐험',q:'우리 동네의 다른 장소와 이야기도 더 알아보고 싶어졌나요?',o:agree,scale:true,tour:true},
+{id:'attachment',g:'우리 동네 탐험',q:'체험을 통해 우리 동네가 더욱 소중하게 느껴졌나요?',o:agree,scale:true,tour:true},
+{id:'favorite',g:'참여 현황',q:'어떤 체험이 가장 재미있었나요?',o:programs,any:true},
+{id:'docent_satisfaction',g:'종합 평가',q:'오늘 세종청년도슨트의 체험 프로그램에 만족했나요?',o:satisfy,scale:true,any:true},
+{id:'festival_satisfaction',g:'종합 평가',q:'오늘 산해진미 트리축제 전체에 만족했나요?',o:satisfy,scale:true}];
+let answers={},step=-1,busy=false,requestId='';
+const $=id=>document.getElementById(id);const view=$('view');
+const joined=()=>(answers.programs||[]).filter(v=>v!=='none');
+const active=()=>Q.filter(q=>(!q.tour||joined().includes('tour'))&&(!q.any||joined().length>0));
+const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
+function btn(txt,cls,fn){const b=el('button',cls,txt);b.type='button';b.onclick=fn;return b}
+let snowEl=null,snowTimer=0;
+function snow(on){clearInterval(snowTimer);if(snowEl){snowEl.remove();snowEl=null}if(!on||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+const layer=snowEl=el('div','snow');layer.setAttribute('aria-hidden','true');document.body.append(layer);
+// 눈송이를 조금씩 하나씩 만들어 내려보냄 (처음엔 적게, 점점 쌓이듯)
+const drop=()=>{if(layer.childElementCount>40)return;const f=el('span','flake');const s=4+Math.random()*8;f.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;animation-duration:${8+Math.random()*6}s;--dx:${Math.random()*50-25}px`;f.addEventListener('animationend',()=>f.remove());layer.append(f)};
+drop();snowTimer=setInterval(drop,450)}
+function reset(){submittedRow=null;answers={};step=-1;busy=false;requestId=(window.crypto&&typeof window.crypto.randomUUID==='function'?window.crypto.randomUUID():null)||Date.now()+'-'+Math.random().toString(36).slice(2);render()}
+function pruneAnswers(){const j=joined();if(!j.includes('tour'))Q.filter(x=>x.tour).forEach(x=>delete answers[x.id]);if(!j.length)Q.filter(x=>x.any).forEach(x=>delete answers[x.id]);if(!j.includes(answers.favorite))delete answers.favorite}
+function scene(group){const d=el('div','scene');const art=el('div','art');const motifs={
+'기본 정보':'<path d="M43 68V43L76 17l33 26v25Z" fill="#fff0cb"/><path d="M34 45 76 12l42 33" fill="none" stroke="#ce5260" stroke-width="9" stroke-linejoin="round"/><rect x="67" y="47" width="18" height="21" rx="3" fill="#bd7850"/><rect x="48" y="42" width="13" height="13" rx="3" fill="#8cc9ce"/><rect x="91" y="42" width="13" height="13" rx="3" fill="#8cc9ce"/>',
+'도슨트 평가':'<rect x="34" y="19" width="85" height="45" rx="17" fill="#fff0cb"/><path d="m53 60-5 13 21-12" fill="#fff0cb"/><path d="M50 34h53M50 45h36" stroke="#458a78" stroke-width="5" stroke-linecap="round"/>',
+'우리 동네 탐험':'<path d="m25 21 33 9 34-9 34 9v42l-34-9-34 9-33-9Z" fill="#fff0cb" stroke="#cfb579" stroke-width="2"/><path d="m58 30 0 42m34-51v42" stroke="#d3b98b" stroke-width="2"/><path d="M39 49q19-24 35 0t32-7" fill="none" stroke="#d65c62" stroke-width="3" stroke-dasharray="5 5"/><circle cx="109" cy="39" r="13" fill="#d8f2ef" stroke="#39766a" stroke-width="5"/><path d="m119 49 12 13" stroke="#39766a" stroke-width="7" stroke-linecap="round"/>',
+'참여 현황':'<rect x="40" y="34" width="72" height="40" rx="5" fill="#e86b69"/><rect x="34" y="25" width="84" height="15" rx="4" fill="#f29a88"/><path d="M76 25v49" stroke="#ffe3a0" stroke-width="12"/><path d="M76 25Q43 24 52 12T76 25Q109 24 100 12T76 25" fill="none" stroke="#ffe3a0" stroke-width="6"/>',
+};const tree='<path d="m76 7-23 28h12L42 57h16L34 76h84L94 57h16L87 35h12Z" fill="#80b998"/><path d="M76 3l4 9 10 1-8 6 3 10-9-5-9 5 3-10-8-6 10-1Z" fill="#ffe29a"/><circle cx="64" cy="42" r="4" fill="#e86b69"/><circle cx="89" cy="58" r="4" fill="#ffe29a"/><circle cx="60" cy="66" r="4" fill="#ffe29a"/>';
+art.innerHTML='<svg viewBox="0 0 152 82" aria-hidden="true"><circle cx="19" cy="17" r="3" fill="#fff0cb"/><circle cx="134" cy="24" r="4" fill="#fff0cb"/><circle cx="15" cy="61" r="2" fill="#fff0cb"/>'+(motifs[group]||tree)+'</svg>';d.append(art,el('small','',group));return d}
+function render(){view.replaceChildren();view.className='screen';$('header').hidden=step<0||step>=active().length;window.scrollTo(0,0);snow(step<0);
+if(step<0){const hero=el('div','scene hero');hero.innerHTML='<svg viewBox="0 0 320 180" role="img" aria-label="눈 내리는 크리스마스 마을"><path d="M0 155Q80 130 160 151T320 150V180H0" fill="#f9f2dc"/><g fill="#e9c86c"><circle cx="38" cy="28" r="3"/><circle cx="270" cy="40" r="4"/><circle cx="85" cy="52" r="3"/><circle cx="229" cy="20" r="3"/></g><path d="M160 8l7 14 16 2-12 11 3 16-14-8-14 8 3-16-12-11 16-2z" fill="#f5d47c"/><path d="M160 37l-48 52h25l-50 42h42l-48 32h158l-48-32h42l-50-42h25z" fill="#71a77b"/><path d="M150 155h20v20h-20z" fill="#8e593c"/><g fill="#f7d47b"><circle cx="148" cy="78" r="5"/><circle cx="178" cy="103" r="5"/><circle cx="122" cy="139" r="5"/><circle cx="191" cy="145" r="5"/></g><g fill="#c84550"><circle cx="175" cy="72" r="5"/><circle cx="140" cy="111" r="5"/><circle cx="161" cy="145" r="6"/></g><g><path d="M18 127l33-25 33 25v42H18z" fill="#f3e1b5"/><path d="M10 130l41-35 41 35" fill="none" stroke="#b94348" stroke-width="9" stroke-linejoin="round"/><rect x="42" y="145" width="16" height="24" rx="2" fill="#9e6244"/><path d="M242 135l30-24 30 24v35h-60z" fill="#f3e1b5"/><path d="M235 137l37-34 37 34" fill="none" stroke="#b94348" stroke-width="8" stroke-linejoin="round"/><rect x="264" y="147" width="15" height="23" rx="2" fill="#9e6244"/></g></svg>';
+hero.append(el('small','','2026. 11. 28. · 산해진미 트리축제'));
+view.append(hero,el('div','kicker','세종청년도슨트 체험부스 만족도 조사'),el('h1','','오늘의 크리스마스 탐험, 어땠나요?'),el('p','','여러분의 이야기를 들려주세요! 약 1~2분이면 끝나요.'),el('div','note','이 설문은 자율 참여이며 이름이나 연락처를 수집하지 않습니다. 응답은 프로그램 개선 및 지역 해설 교육 효과 연구에 활용될 수 있습니다. 미성년자의 경우 보호자와 함께 안내를 확인해 주세요.'),btn('설문 시작하기','primary',()=>{step=0;render()}));return}
+if(step>=active().length){finishScreen();return}
+const list=active(),q=list[step],total=list.length;
+$('count').textContent=`${step+1} / ${total}`;$('fill').style.width=`${(step+1)/total*100}%`;$('progress').setAttribute('aria-valuenow',Math.round((step+1)/total*100));
+view.append(scene(q.g),el('h2','',q.q));
+if(q.multi)view.append(el('p','hint','해당하는 체험을 모두 골라 주세요.'));
+const options=el('div','opts');
+const choices=q.id==='favorite'?q.o.filter(o=>joined().includes(o[0])):q.o;
+for(const [value,label] of choices){
+const selected=q.multi?(answers[q.id]||[]).includes(value):answers[q.id]===value;
+const b=btn('',`option${selected?' selected':''}${value==='none'?' none':''}`,()=>{if(busy)return;
+if(q.multi){let a=new Set(answers[q.id]||[]);
+if(value==='none'){a=a.has('none')?new Set():new Set(['none'])}
+else{a.delete('none');a.has(value)?a.delete(value):a.add(value)}
+answers[q.id]=[...a];pruneAnswers();render()}
+else{answers[q.id]=value;step++;render()}});
+b.setAttribute('aria-pressed',String(selected));
+const mark=el('span',q.scale?`num score-${value}`:`mark${q.multi?' box':''}`,q.scale?`${value}점`:'');
+if(!q.scale)mark.innerHTML=CHECK;
+b.append(mark,el('span','label',label));options.append(b)}
+view.append(options);
+if(q.multi){const ok=(answers[q.id]||[]).length>0;const next=btn('다음','primary',()=>{step++;render()});next.disabled=!ok;view.append(next);if(!ok)view.append(el('p','center','하나 이상 골라야 다음으로 갈 수 있어요.'))}}
+$('back').onclick=()=>{if(!busy){step--;render()}};
+function finishScreen(){
+  view.append(scene('마지막 단계'),el('h2','','모든 질문에 답했어요!'),el('p','','아래 버튼을 눌러 응답을 제출해 주세요.'));
+  view.append(btn('응답 제출하기','primary',submit),btn('이전 답변 확인','secondary',()=>{step--;render()}));
+}
+// Match the V4 SQL column names and send null for skipped questions.
+function buildRow(){
+  pruneAnswers();
+  const row={client_id:requestId};
+  Q.forEach(q=>{row[q.id]=Object.prototype.hasOwnProperty.call(answers,q.id)?answers[q.id]:null});
+  return row;
+}
+async function postRow(row){
+  const ctrl=new AbortController();
+  const timeout=setTimeout(()=>ctrl.abort(),12000);
+  try{
+    const response=await fetch(SUPABASE_URL+'/rest/v1/'+TABLE,{
+      method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},
+      body:JSON.stringify(row),signal:ctrl.signal
+    });
+    if(response.ok)return;
+    let detail={};
+    try{detail=await response.json()}catch(e){}
+    // An identical client_id retried after an uncertain response may already be stored.
+    if(response.status===409&&detail.code==='23505')return;
+    const err=new Error('Supabase HTTP '+response.status+' '+(detail.message||''));
+    err.http=response.status;
+    throw err;
+  }finally{clearTimeout(timeout)}
+}
+let submittedRow=null;
+async function submit(){
+  if(busy)return;
+  busy=true;
+  const buttons=view.querySelectorAll('button');
+  buttons.forEach(b=>b.disabled=true);
+  let status=document.getElementById('saveStatus');
+  if(!status){status=el('p','','');status.id='saveStatus';status.setAttribute('role','status');view.append(status)}
+  status.className='';status.textContent='응답 저장 중…';
+  // Preserve the exact payload and ID for network retries, avoiding accidental duplicate submissions.
+  if(!submittedRow)submittedRow=buildRow();
+  try{await postRow(submittedRow);done(true)}
+  catch(e){
+    busy=false;console.warn('Survey save failed:',e.message);
+    status.className='error';
+    status.textContent='저장 확인에 실패했어요. 인터넷 연결을 확인하고 다시 제출해 주세요.';
+    if(e.http>=400&&e.http<500){submittedRow=null;buttons.forEach(b=>b.disabled=false)}
+    else{buttons[0].disabled=false;buttons[1].disabled=true;status.textContent+=' 중복 저장을 막기 위해 같은 응답을 다시 전송합니다.'}
+  }
+}
+function done(saved){busy=false;snow(false);view.replaceChildren();$('header').hidden=true;view.append(scene('메리 크리스마스!'),el('h1','center','소중한 응답, 고마워요!'),el('p','center',saved?'응답이 저장되었습니다. 즐거운 축제 보내세요!':'미리보기 완료! 실제 응답은 저장되지 않았습니다.'),btn('처음으로','primary',reset))}
+reset();
+</script></body></html>
