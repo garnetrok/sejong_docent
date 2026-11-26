@@ -1,76 +1,10 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1f6b55"><title>산해진미 트리축제 | 세종청년도슨트 만족도 조사</title><style>
-:root{--green:#1f6b55;--green-dark:#154d3c;--ink:#1f2d28;--muted:#586a62;--bg:#faf7ef;--soft:#e6f2ea;--line:#d6ddd2;--red:#b83a48}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:18px;line-height:1.55;word-break:keep-all;-webkit-text-size-adjust:100%}
-button{font:inherit;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-button:focus-visible{outline:4px solid #e0a526;outline-offset:3px}
-button:disabled{opacity:.4;cursor:default}
-.app{max-width:520px;min-height:100vh;min-height:100svh;margin:auto;padding:max(14px,env(safe-area-inset-top)) 20px max(24px,env(safe-area-inset-bottom));display:flex;flex-direction:column}
-
-/* header */
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.back{min-height:48px;padding:0 18px;border:2px solid var(--line);border-radius:999px;background:#fff;color:var(--green-dark);font-weight:800;font-size:16px}
-.count{font-size:18px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--green-dark)}
-.track{height:14px;margin:10px 0 20px;border-radius:999px;background:#e3e8de;overflow:hidden}
-.fill{height:100%;border-radius:999px;background:var(--green);transition:width .3s}
-
-/* illustration card */
-.scene{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:22px;padding:14px 16px;border-radius:28px;background:#286b59;color:#fff;text-align:center}
-.scene .art svg{display:block;width:150px;height:82px}
-.scene small{display:inline-block;padding:3px 16px;border-radius:999px;background:#fff6dc;color:#1f4d3f;font-size:15px;font-weight:800}
-.hero{padding:20px 14px 16px}
-.hero svg{display:block;width:100%;max-width:320px;height:auto}
-
-/* text */
-.kicker{margin-bottom:6px;color:var(--red);font-size:15px;font-weight:800}
-h1{margin:0 0 12px;font-size:34px;line-height:1.3;letter-spacing:-.04em}
-h2{margin:0 0 8px;font-size:27px;line-height:1.4;letter-spacing:-.03em}
-p{margin:8px 0;color:var(--muted)}
-.hint{font-size:17px;font-weight:700;color:var(--green-dark)}
-.center{text-align:center}
-.note{margin:16px 0;padding:14px 16px;border:2px solid var(--line);border-radius:18px;background:#fff;color:var(--muted);font-size:15px;line-height:1.7}
-.error{color:#a02332;font-weight:800}
-
-/* options */
-.opts{display:grid;gap:12px;margin:20px 0 8px}
-.option{display:flex;align-items:center;gap:14px;width:100%;min-height:74px;padding:14px 16px;border:3px solid var(--line);border-radius:22px;background:#fff;color:var(--ink);font-size:20px;font-weight:800;line-height:1.35;text-align:left;box-shadow:0 4px 0 var(--line);transition:transform .1s,box-shadow .1s,background .1s}
-.option:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
-.option.selected{border-color:var(--green);background:var(--soft);box-shadow:0 4px 0 var(--green)}
-.option.selected:active{box-shadow:0 1px 0 var(--green)}
-.option.none{margin-top:8px;border-style:dashed;background:transparent;box-shadow:none}
-.option.none.selected{border-style:solid;background:var(--soft)}
-.mark{display:grid;place-items:center;flex:none;width:30px;height:30px;border:3px solid #9fb3a8;border-radius:50%;background:#fff}
-.mark.box{border-radius:9px}
-.mark svg{width:18px;height:18px;opacity:0}
-.selected .mark{background:var(--green);border-color:var(--green)}
-.selected .mark svg{opacity:1}
-.num{display:grid;place-items:center;flex:none;width:58px;height:48px;border-radius:14px;background:#edf0e8;color:var(--ink);font-size:20px;font-weight:900}
-.selected .num{background:var(--green);color:#fff}
-.label{flex:1}
-
-/* buttons */
-.primary{width:100%;min-height:64px;margin-top:14px;padding:12px;border:0;border-radius:22px;background:var(--green);color:#fff;font-size:21px;font-weight:900;box-shadow:0 5px 0 var(--green-dark)}
-.primary:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--green-dark)}
-.secondary{width:100%;min-height:54px;margin-top:14px;border:2px solid var(--line);border-radius:18px;background:#fff;color:var(--green-dark);font-size:17px;font-weight:800}
-.foot{margin-top:auto;padding-top:26px;text-align:center;font-size:13px;color:var(--muted)}
-
-.screen{animation:appear .25s ease-out}
-@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media(max-height:700px){.scene{margin-bottom:14px}.scene .art svg{height:60px}.option{min-height:62px;padding:10px 14px}.opts{gap:10px}}
-.snow{position:fixed;inset:0;z-index:5;overflow:hidden;pointer-events:none}
-.flake{position:absolute;top:-20px;border-radius:50%;background:#fff;border:1px solid #a9c7da;opacity:.9;animation:fall linear infinite}
-@keyframes fall{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(var(--dx),55vh,0)}100%{transform:translate3d(calc(var(--dx)*-1),115vh,0)}}
-@media(prefers-reduced-motion:reduce){.snow{display:none}}
-.stars-panel{margin:24px 0 12px;padding:18px 8px 14px;border:2px solid var(--line);border-radius:24px;background:#fff;box-shadow:0 4px 0 var(--line)}
-.star-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
-.star-option{min-width:0;min-height:78px;padding:8px 2px;border:0;border-radius:14px;background:transparent;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-weight:800;font-size:15px}
-.star-option svg{width:100%;max-width:44px;height:auto;fill:#fff4da;stroke:#a87619;stroke-width:1.6;transition:transform .12s,fill .12s}
-.star-option.lit svg{fill:#eebc52;stroke:#976916}.star-option.selected{background:#f4edda}.star-option:active svg{transform:scale(.92)}
-.star-endpoints{display:flex;justify-content:space-between;gap:4px;font-weight:700;font-size:13px;color:var(--muted);padding:10px 4px 0}
-@media(max-width:350px){.app{padding-left:12px;padding-right:12px}.star-option{font-size:14px}.stars-panel{padding-left:4px;padding-right:4px}}
-[hidden]{display:none!important}
-</style></head><body><div class="app"><header id="header" hidden><div class="top"><button class="back" id="back" type="button">이전</button><span class="count" id="count"></span></div><div class="track" role="progressbar" aria-label="설문 진행률" aria-valuemin="0" aria-valuemax="100" id="progress"><div class="fill" id="fill"></div></div></header><main id="view" aria-live="polite"></main><footer class="foot">세종청년도슨트 · 2026 산해진미 트리축제</footer></div><script>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#102f2d"><title>산해진미 트리축제 | 세종청년도슨트 만족도 조사</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap"><style>
+:root{--night:#102f2d;--night-deep:#0a2426;--cream:#fff8e7;--paper:#fffaf0;--ink:#233b33;--muted:#63716a;--green:#286650;--green-dark:#174c3f;--gold:#f3ce77;--gold-dark:#b18332;--line:#ddd7c4;--soft:#e6f1e7;--red:#b33f49;--display:'Jua','Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}html,body{margin:0;min-height:100%}body{background:radial-gradient(ellipse at 50% 0,#285d50 0,transparent 65%),linear-gradient(160deg,#123c36,#0c262b 75%);color:var(--cream);font-family:'Pretendard',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:17px;line-height:1.52;word-break:keep-all}button{font:inherit;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-appearance:none;appearance:none}button:focus-visible{outline:3px solid #da982e;outline-offset:3px}button:disabled{opacity:.45;cursor:default}.app{max-width:520px;min-height:100vh;min-height:100svh;margin:auto;padding:calc(12px + env(safe-area-inset-top)) 16px calc(22px + env(safe-area-inset-bottom));display:flex;flex-direction:column}.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}.back{min-height:44px;padding:0 13px;border:1px solid #ffffff4d;border-radius:999px;background:#ffffff0b;color:var(--cream);font-weight:700;font-size:14px}.count{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;color:#ffedbb}.world{position:relative;overflow:hidden;border-radius:24px;border:1px solid #a8d3bc40;background:#143e3e;box-shadow:0 5px 20px #061b2140}.world svg{display:block;width:100%;height:auto}.world.compact svg{max-height:154px}.world.large{border-radius:29px}.world.large svg{max-height:none}.world .snow{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}.flake{position:absolute;top:-12px;border-radius:50%;background:#fff;opacity:.75;animation:fall var(--duration) linear infinite;animation-delay:var(--delay)}@keyframes fall{0%{transform:translate3d(0,-12px,0)}100%{transform:translate3d(var(--dx),340px,0)}}.garland{margin:2px 9px 5px}.garland svg{display:block;width:100%;height:31px}.light-caption{font-size:12px;font-weight:700;color:#f8e4b0;text-align:center;margin:1px 0 10px;letter-spacing:.015em}.question-screen{background:var(--paper);border-radius:25px;padding:16px 15px 18px;color:var(--ink);box-shadow:0 5px 0 #b5c4af22,0 14px 25px #081e253a}.tag{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;margin:0 0 10px;border-radius:999px;background:#e7efdf;color:#355d49;font-weight:800;font-size:12px;letter-spacing:.02em}.tag:before{content:'';width:7px;height:7px;background:#8aa772;border-radius:50%}.kicker{font-size:13px;font-weight:800;letter-spacing:.04em;color:#f0cc7f;margin:17px 0 7px}.title-block{text-align:center;padding:8px 7px 0}h1,h2{font-family:var(--display);font-weight:400;letter-spacing:-.025em}h1{font-size:35px;line-height:1.24;margin:7px 0 12px;color:var(--cream)}h2{font-size:25px;line-height:1.34;margin:0 0 6px}.title-block h1{font-size:35px}p{margin:8px 0;color:var(--muted)}.dim{color:#d3e4da}.hint{font-size:14px;font-weight:700;color:var(--green-dark);margin:7px 0}.center{text-align:center}.note{margin:14px 0;padding:12px 14px;border:1px solid #ffffff29;background:#ffffff08;border-radius:16px;color:#d5e2d9;font-size:12.5px;line-height:1.65}.opts{display:grid;gap:9px;margin:16px 0 5px}.option{display:flex;align-items:center;gap:11px;width:100%;min-height:62px;padding:9px 12px;border:2px solid var(--line);border-radius:16px;background:#fffdf8;color:var(--ink);font-size:17px;font-weight:700;line-height:1.36;text-align:left;box-shadow:0 3px 0 #e3ddca;transition:transform .12s,box-shadow .12s,background .12s}.option:active{transform:translateY(2px);box-shadow:0 1px 0 #d2c8b1}.option.selected{border-color:var(--green);background:var(--soft);box-shadow:0 3px 0 #95b49c}.option.none{border-style:dashed;box-shadow:none;background:#f7f6ed}.option.none.selected{border-style:solid;background:var(--soft)}.mark{display:grid;place-items:center;flex:none;width:26px;height:26px;border:2px solid #a9b7ad;border-radius:50%;background:#fff}.mark.box{border-radius:8px}.mark svg{width:16px;height:16px;opacity:0}.selected .mark{background:var(--green);border-color:var(--green)}.selected .mark svg{opacity:1}.num{display:grid;place-items:center;flex:none;width:48px;height:40px;border-radius:12px;background:#e8eadf;color:#254b3d;font-size:17px;font-weight:900}.selected .num{background:var(--green);color:#fff}.label{flex:1;min-width:0}.option .mini-art{flex:none;width:54px;height:47px;background:#e9f0e5;border-radius:12px;display:grid;place-items:center}.mini-art svg{width:51px;height:44px}.option.program-choice{min-height:76px;padding:9px 10px;gap:9px}.primary{width:100%;min-height:57px;margin-top:12px;padding:11px;border:0;border-radius:17px;background:var(--gold);color:#20382f;font-size:19px;font-weight:900;box-shadow:0 5px 0 var(--gold-dark);transition:transform .12s}.primary:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 var(--gold-dark)}.secondary{width:100%;min-height:48px;margin-top:12px;border:1px solid #ffffff60;border-radius:15px;background:transparent;color:var(--cream);font-size:15px;font-weight:700}.foot{margin-top:auto;padding-top:19px;text-align:center;font-size:12px;color:#b4cbbf}.screen{animation:appear .22s ease-out}@keyframes appear{from{opacity:.2;transform:translateY(5px)}to{opacity:1;transform:none}}.error{color:#ffc3bb;font-weight:800;font-size:14px}.stars-panel{margin:19px 0 6px;padding:15px 6px 12px;border:2px solid var(--line);border-radius:18px;background:#fffdf8;box-shadow:0 3px 0 #e3ddca}.star-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}.star-option{min-width:0;min-height:72px;padding:5px 0;border:0;border-radius:12px;background:transparent;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:800;font-size:14px}.star-option svg{width:100%;max-width:42px;height:auto;fill:#fff4da;stroke:#a87619;stroke-width:1.6;transition:transform .12s,fill .12s}.star-option.lit svg{fill:#eebc52;stroke:#976916}.star-option.selected{background:#f4edda}.star-option:active svg{transform:scale(.92)}.star-endpoints{display:flex;justify-content:space-between;gap:4px;font-weight:700;font-size:12px;color:var(--muted);padding:8px 4px 0}.celebrate{animation:arrive .65s cubic-bezier(.2,.85,.3,1.1) both;transform-box:fill-box;transform-origin:50% 100%}@keyframes arrive{from{opacity:0;transform:translateY(13px) scale(.88)}to{opacity:1;transform:none}}.glimmer{animation:glow 3s ease-in-out infinite alternate}@keyframes glow{0%{opacity:.6}100%{opacity:1}}.ending h2{color:var(--cream);font-size:29px}.ending p{color:#d3e4da}.endmark{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.1em;color:#f1d69b;margin:16px 0 6px}.endcard{margin:16px 0 0;text-align:center}.endcard h1{font-size:34px}.endcard p{font-size:16px;color:#d4e4da}.endcard .primary{margin-top:18px}.endcard .error{color:#ffc3bb}.endcard .note{color:#dae5d9}.thanks{margin:17px 0}.ending .secondary{margin-top:12px}
+@media(max-width:360px){.app{padding-left:11px;padding-right:11px}.question-screen{padding:14px 11px 15px}h2{font-size:23px}.option{font-size:16px;gap:8px;padding:9px 10px}.option .mini-art{width:45px}.mini-art svg{width:43px}.title-block h1{font-size:31px}}
+@media(max-height:740px){.world.compact svg{max-height:115px}.light-caption{margin-bottom:7px}.question-screen{padding-top:12px;padding-bottom:14px}.option{min-height:55px;padding-top:7px;padding-bottom:7px}.opts{gap:7px;margin-top:12px}.garland svg{height:25px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.snow{display:none}}[hidden]{display:none!important}
+</style></head><body><div class="app"><header id="header" hidden><div class="top"><button class="back" id="back" type="button">이전</button><span class="count" id="count"></span></div><div id="village"></div><div class="garland" id="progress" role="progressbar" aria-label="설문 진행률" aria-valuemin="0" aria-valuemax="100"></div></header><main id="view" aria-live="polite"></main><footer class="foot">세종청년도슨트 · 2026 산해진미 트리축제</footer></div><script>
 // Supabase REST API: public publishable key only.
 const SUPABASE_URL = "https://uwddnunwclrrrwzbatyo.supabase.co";
 const SUPABASE_KEY = "sb_publishable_DuJvW8Qnfq0xVo1-_QiL3Q_9eNVJ4_s";
@@ -107,12 +41,34 @@ const joined=()=>(answers.programs||[]).filter(v=>v!=='none');
 const active=()=>Q.filter(q=>(!q.docent||answers.docent_participated===true)&&(!q.any||joined().length>0)&&(!q.program||joined().includes(q.program))&&(!q.multiple||joined().length>1));
 const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
 function btn(txt,cls,fn){const b=el('button',cls,txt);b.type='button';b.onclick=fn;return b}
-let snowEl=null,snowTimer=0;
-function snow(on){clearInterval(snowTimer);if(snowEl){snowEl.remove();snowEl=null}if(!on||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-const layer=snowEl=el('div','snow');layer.setAttribute('aria-hidden','true');document.body.append(layer);
-// 눈송이를 조금씩 하나씩 만들어 내려보냄 (처음엔 적게, 점점 쌓이듯)
-const drop=()=>{if(layer.childElementCount>40)return;const f=el('span','flake');const s=4+Math.random()*8;f.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;animation-duration:${8+Math.random()*6}s;--dx:${Math.random()*50-25}px`;f.addEventListener('animationend',()=>f.remove());layer.append(f)};
-drop();snowTimer=setInterval(drop,450)}
+// Every light is earned by answering a question, never by giving a high score.
+const palette=['#e98582','#f5ce78','#93d3af','#9ed1e8'];
+let drawingId=0;
+const starShape=(x,y,r,c,opacity=1)=>`<path d="M0 ${-r} ${r*.25} ${-r*.25} ${r} 0 ${r*.25} ${r*.25} 0 ${r} ${-r*.25} ${r*.25} ${-r} 0 ${-r*.25} ${-r*.25}Z" transform="translate(${x} ${y})" fill="${c}" opacity="${opacity}"/>`;
+function fir(x,y,s,fill='#426d5c'){
+ return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-3" y="-8" width="6" height="13" rx="2" fill="#88614f"/><path d="M0 -62Q-11 -45 -20 -37L-11 -39Q-20 -24 -28 -17L-17 -20Q-26 -6 -34 0Q0 8 34 0Q26 -6 17 -20L28 -17Q20 -24 11 -39L20 -37Q11 -45 0 -62Z" fill="${fill}"/><path d="M0 -60Q-8 -44 -17 -38Q0 -34 17 -38Q8 -44 0 -60ZM-12 -35Q-19 -24 -25 -18Q0 -13 25 -18Q18 -24 12 -35Q0 -30 -12 -35Z" fill="#e3efea" opacity=".8"/></g>`;
+}
+function cottage(x,y,s,on,roof='#bb6860'){
+ return `<g transform="translate(${x} ${y}) scale(${s})"><ellipse cx="0" cy="5" rx="54" ry="8" fill="#b5d0c8" opacity=".6"/><rect x="-37" y="-50" width="74" height="54" rx="4" fill="#d0a17b"/><path d="M-37 -45H37V-35H-37Z" fill="#b78269" opacity=".5"/><path d="M-48 -48 0 -89 48 -48Z" fill="${roof}" stroke="#663d3a" stroke-width="2" stroke-linejoin="round"/><path d="M-49 -50 0 -91 49 -50Q43 -44 35 -50L0 -78 -36 -49Q-43 -45 -49 -50Z" fill="#f5fbf1"/><rect x="22" y="-83" width="10" height="22" rx="2" fill="#977265"/><path d="M19 -82H35" stroke="#f5fbf1" stroke-width="5" stroke-linecap="round"/><rect x="-7" y="-26" width="16" height="30" rx="7" fill="#80594a"/><g fill="${on?'#ffdfa2':'#395c5f'}" stroke="#755b4d" stroke-width="2"><rect x="-28" y="-35" width="15" height="17" rx="2"/><rect x="15" y="-35" width="15" height="17" rx="2"/><circle cx="0" cy="-61" r="7"/></g>${on?'<g fill="#ffe3a5" opacity=".14"><circle cx="-20" cy="-27" r="20"/><circle cx="22" cy="-27" r="20"/><circle cx="0" cy="-61" r="17"/></g>':''}<path d="M-20 -35V-18M-28 -26H-13M22 -35V-18M15 -26H30" stroke="#755b4d" stroke-width="1.7"/><path d="M-36 5H36" stroke="#f7f8ef" stroke-width="5" stroke-linecap="round"/></g>`;
+}
+function present(x,y,s,c,r){return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-17" y="-19" width="34" height="24" rx="3" fill="${c}"/><rect x="-20" y="-24" width="40" height="8" rx="3" fill="${c}" stroke="#183c3d" stroke-opacity=".25"/><path d="M0 -23V5" stroke="${r}" stroke-width="7"/><path d="M0 -24Q-22 -27 -12 -34Q-4 -38 0 -24Q20 -27 12 -34Q4 -38 0 -24" fill="none" stroke="${r}" stroke-width="4" stroke-linejoin="round"/></g>`}
+function rudolph(x,y,s){return `<g transform="translate(${x} ${y})"><g class="celebrate"><g transform="scale(${s})"><ellipse cx="0" cy="7" rx="33" ry="8" fill="#9fbbb2" opacity=".55"/><path d="M-13 -28 -19 2M14 -28 21 2" stroke="#8d5b44" stroke-width="9" stroke-linecap="round"/><path d="M-19 2H-12M21 2H27" stroke="#594339" stroke-width="7" stroke-linecap="round"/><ellipse cy="-24" rx="27" ry="24" fill="#ba8965"/><path d="M-22 -75Q-43 -102 -34 -115M-31 -95 -47 -99M22 -75Q43 -102 34 -115M31 -95 47 -99" fill="none" stroke="#88614c" stroke-width="7" stroke-linecap="round"/><ellipse cx="-26" cy="-66" rx="14" ry="8" transform="rotate(23 -26 -66)" fill="#c68e6c"/><ellipse cx="26" cy="-66" rx="14" ry="8" transform="rotate(-23 26 -66)" fill="#c68e6c"/><ellipse cy="-65" rx="29" ry="28" fill="#d6aa80" stroke="#a67555" stroke-width="1.7"/><ellipse cy="-52" rx="21" ry="14" fill="#f6deb2"/><circle cx="-10" cy="-70" r="3.3" fill="#3c3630"/><circle cx="10" cy="-70" r="3.3" fill="#3c3630"/><circle cx="-19" cy="-60" r="4" fill="#eaa18c"/><circle cx="19" cy="-60" r="4" fill="#eaa18c"/><circle cy="-55" r="9" fill="#d84b50"/><circle cx="-3" cy="-58" r="2.5" fill="#ffdfc9"/><path d="M-5 -44Q0 -40 5 -44" fill="none" stroke="#96644e" stroke-width="2" stroke-linecap="round"/><path d="M-21 -37Q0 -30 21 -37L20 -29Q0 -22 -20 -29Z" fill="#b9404a"/><circle cy="-26" r="5.5" fill="#f3ce77"/></g></g></g>`}
+function santa(x,y,s){return `<g transform="translate(${x} ${y})"><g class="celebrate" style="animation-delay:.12s"><g transform="scale(${s})"><ellipse cx="0" cy="6" rx="37" ry="8" fill="#9fbbb2" opacity=".55"/><path d="M-15 -18V1M15 -18V1" stroke="#473e39" stroke-width="13" stroke-linecap="round"/><path d="M-17 1H-24M17 1H24" stroke="#473e39" stroke-width="10" stroke-linecap="round"/><path d="M-26 -49Q-38 -49 -41 -26M26 -49Q35 -52 41 -65" fill="none" stroke="#c95051" stroke-width="18" stroke-linecap="round"/><circle cx="-41" cy="-26" r="8" fill="#f8ecda"/><circle cx="41" cy="-65" r="8" fill="#f8ecda"/><rect x="-28" y="-57" width="56" height="46" rx="17" fill="#c95051" stroke="#a43f43" stroke-width="2"/><rect x="-27" y="-30" width="54" height="9" rx="3" fill="#3f4b43"/><rect x="-7" y="-32" width="14" height="13" rx="2" fill="#f2cb73"/><rect x="-3" y="-29" width="6" height="7" fill="#3f4b43"/><path d="M-26 -13H26" stroke="#f8ecda" stroke-width="8" stroke-linecap="round"/><circle cy="-75" r="25" fill="#f2c9a3"/><path d="M-23 -67Q-31 -51 -14 -43Q0 -33 14 -43Q31 -51 23 -67Q11 -62 0 -66Q-11 -62 -23 -67Z" fill="#fff4df"/><path d="M-9 -75Q-6 -78 -3 -75M3 -75Q6 -78 9 -75" fill="none" stroke="#483c34" stroke-width="2.5" stroke-linecap="round"/><circle cx="-16" cy="-69" r="4" fill="#e89d8a"/><circle cx="16" cy="-69" r="4" fill="#e89d8a"/><ellipse cy="-67" rx="5" ry="4" fill="#eaa68b"/><path d="M-7 -58Q0 -53 7 -58" stroke="#aa6e5b" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M-25 -84Q-21 -122 16 -116Q35 -108 26 -87Q19 -101 13 -93L20 -83Z" fill="#c95051" stroke="#a43f43" stroke-width="2"/><path d="M-27 -83Q0 -87 26 -82" stroke="#fff4df" stroke-width="11" stroke-linecap="round"/><circle cx="27" cy="-107" r="8" fill="#fff4df"/></g></g></g>`}
+const ornaments=[[240,46],[223,62],[256,64],[211,82],[241,84],[268,88],[197,105],[219,112],[253,106],[280,109],[186,128],[215,137],[240,129],[266,139],[294,128],[204,150],[276,150]];
+function winterArt(progress,final=false,compact=false){
+ const p=Math.max(0,Math.min(1,progress));const id='winter'+(++drawingId);const num=Math.floor(p*ornaments.length+.00001);
+ const lights=ornaments.map(([x,y],i)=>{const on=i<num,c=palette[i%4];return `<g>${on?`<circle cx="${x}" cy="${y}" r="12" fill="${c}" opacity=".12"/><circle cx="${x}" cy="${y}" r="7.7" fill="${c}" opacity=".23"/>`:''}<circle cx="${x}" cy="${y}" r="4.4" fill="${on?c:'#4b7c68'}" stroke="${on?'#f9eac6':'#326653'}" stroke-width="${on?'.9':'1.2'}"/>${on?`<circle cx="${x-1.1}" cy="${y-1.2}" r="1" fill="#fff8e4"/>`:''}</g>`}).join('');
+ const stars=[[22,24,2],[50,54,2.4],[83,21,3],[120,39,2],[159,14,2.5],[309,23,3],[336,60,2],[374,23,2],[415,60,3],[455,30,2],[438,85,2],[34,95,2]].map(([x,y,r],i)=>starShape(x,y,r,p>(i+1)/14?'#ffe3a0':'#c1d9d1',p>(i+1)/14?1:.55)).join('');
+ const ribbon=Array.from({length:23},(_,i)=>{const x=13+i*20.6,y=8+Math.sin(i/22*Math.PI)*7,on=i<Math.floor(p*23+.0001),c=palette[i%4];return `<g><path d="M${x} ${y}v5" stroke="#284a48" stroke-width="2"/><ellipse cx="${x}" cy="${y+7}" rx="2.7" ry="4" fill="${on?c:'#436d62'}"/>${on?`<circle cx="${x}" cy="${y+7}" r="6" fill="${c}" opacity=".13"/>`:''}</g>`}).join('');
+ const topStar=p>=.95?starShape(240,23,15,'#fff1b6')+starShape(240,23,24,'#f4ce79',.16):starShape(240,23,12,'#8b9c79');
+ const santaScene=final?rudolph(103,192,.78)+santa(379,191,.79):'';
+ return `<svg viewBox="0 0 480 212" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${final?'불빛이 가득한 마을과 산타, 루돌프':'크리스마스 마을의 불빛이 켜지는 모습'}"><defs><linearGradient id="${id}sky" x2="0" y2="1"><stop stop-color="#113333"/><stop offset="1" stop-color="${p>.65?'#427b6d':'#285950'}"/></linearGradient><linearGradient id="${id}tree" x2=".8" y2="1"><stop stop-color="#39856b"/><stop offset="1" stop-color="#1e5548"/></linearGradient><radialGradient id="${id}moon"><stop stop-color="#fff4c6" stop-opacity=".23"/><stop offset="1" stop-color="#fff4c6" stop-opacity="0"/></radialGradient></defs><rect width="480" height="212" fill="url(#${id}sky)"/>${stars}<circle cx="406" cy="45" r="37" fill="url(#${id}moon)"/><path d="M409 23Q392 30 397 47Q403 60 419 53Q406 69 392 57Q375 42 387 28Q396 18 409 23Z" fill="#e6dfb9"/><path d="M0 124Q44 82 108 108T222 110T345 96T480 110V212H0Z" fill="#86afa4"/><path d="M0 145Q88 109 162 143T319 131T480 133V212H0Z" fill="#c7ddd3"/>${fir(18,137,.9,'#3c7462')}${fir(70,119,.75,'#528878')}${fir(148,143,.87,'#4c7c69')}${fir(333,140,.85,'#4b7d6b')}${fir(462,143,1.1,'#427461')}<path d="M0 169Q70 152 142 171T290 170T480 164V212H0Z" fill="#edf2e5"/><path d="M0 193Q74 177 155 193T310 191T480 185V212H0Z" fill="#f9f6e9"/>${cottage(77,166,.87,p>=.17,'#ae6862')}${cottage(404,165,.88,p>=.38,'#be8170')}${fir(131,176,.59,'#538672')}${fir(348,176,.59,'#538672')}<ellipse cx="240" cy="181" rx="99" ry="10" fill="#c7d8ca"/><rect x="231" y="155" width="18" height="27" rx="4" fill="#91654f"/><path d="M240 32Q222 57 203 68L217 65Q199 89 185 96L204 93Q178 123 165 132L185 129Q163 153 147 159Q240 181 333 159Q317 153 295 129L315 132Q301 123 276 93L295 96Q281 89 263 65L277 68Q258 57 240 32Z" fill="url(#${id}tree)" stroke="#1c5649" stroke-width="2.4" stroke-linejoin="round"/><path d="M240 33Q223 57 205 68Q240 78 275 68Q257 57 240 33M215 71Q201 86 187 95Q240 110 293 95Q279 87 265 71Q240 83 215 71ZM204 99Q179 125 167 131Q240 151 313 131Q298 123 276 99Q240 113 204 99Z" fill="#63957b" opacity=".5"/><path d="M209 76Q239 90 272 77M188 110Q241 129 293 110M169 143Q240 166 312 143" fill="none" stroke="${p>.25?'#d7b86f':'#638c76'}" stroke-width="2.3" stroke-linecap="round" stroke-dasharray="3 4"/>${lights}${topStar}${p>=.48?present(185,184,.65,'#c96461','#f4d17b'):''}${p>=.63?present(283,188,.8,'#88b8b2','#f6df9d'):''}${p>=.78?present(207,191,.48,'#e5bc73','#b85552'):''}${p>=.9?present(264,187,.52,'#c96c69','#f7dd9b'):''}${final?starShape(155,64,7,'#f6d681')+starShape(323,64,7,'#f6d681')+starShape(45,129,5,'#f6d681')+starShape(437,126,5,'#f6d681'):''}${santaScene}<path d="M12 8Q240 35 468 8" fill="none" stroke="#183d3b" stroke-width="2"/>${ribbon}</svg>`;
+}
+function snowHTML(){return '<div class="snow" aria-hidden="true">'+Array.from({length:22},(_,i)=>`<i class="flake" style="left:${(i*37+13)%100}%;width:${3+i%4}px;height:${3+i%4}px;--duration:${6+(i%7)*.8}s;--delay:${-i*.77}s;--dx:${(i%7-3)*9}px"></i>`).join('')+'</div>'}
+function world(progress,final=false,compact=false,withSnow=false){const box=el('div','world '+(compact?'compact':'large'));box.innerHTML=winterArt(progress,final,compact)+(withSnow?snowHTML():'');return box;}
+function garland(total,completed){let content='<path d="M9 7 Q180 19 351 7" fill="none" stroke="#91ac9750" stroke-width="1.6"/>';for(let i=0;i<total;i++){const x=12+i*336/Math.max(1,total-1),y=7+5*Math.sin(i/Math.max(1,total-1)*Math.PI);const on=i<completed,c=palette[i%4];content+=`<g><rect x="${x-2.3}" y="${y-1}" width="4.6" height="5" rx="1" fill="#082b2a"/>${on?`<circle cx="${x}" cy="${y+10}" r="9" fill="${c}" opacity=".13"/>`:''}<path d="M${x-3.8} ${y+5}Q${x-5.2} ${y+11} ${x} ${y+15}Q${x+5.2} ${y+11} ${x+3.8} ${y+5}Z" fill="${on?c:'#3d6256'}"/>${on?`<circle cx="${x-1}" cy="${y+8}" r="1.1" fill="#fff4d3"/>`:''}</g>`}const g=$('progress');g.innerHTML=`<svg viewBox="0 0 360 28" aria-hidden="true">${content}</svg>`;g.setAttribute('aria-valuenow',Math.round(completed/Math.max(1,total)*100));}
+function miniArt(value){const pieces={rudolph:'<path d="M18 19Q10 7 14 4M18 13 8 10M46 19Q54 7 50 4M46 13 56 10" fill="none" stroke="#8d644c" stroke-width="4" stroke-linecap="round"/><ellipse cx="32" cy="29" rx="19" ry="19" fill="#c59871"/><ellipse cx="32" cy="37" rx="12" ry="8" fill="#f4ddb5"/><circle cx="25" cy="26" r="2.3" fill="#39443b"/><circle cx="39" cy="26" r="2.3" fill="#39443b"/><circle cx="32" cy="33" r="5.6" fill="#ce5357"/>',tour:'<path d="M7 14 23 8 40 14 56 8V43L40 49 23 43 7 49Z" fill="#f6e6b9" stroke="#b7a16f" stroke-width="2"/><path d="M23 8V43M40 14V49" stroke="#d2ba87" stroke-width="2"/><path d="M12 35Q23 18 35 30T47 21" fill="none" stroke="#be5c5d" stroke-width="2.7" stroke-dasharray="4 3"/><circle cx="46" cy="24" r="9" fill="#dce9df" stroke="#387363" stroke-width="4"/><path d="M53 31 60 39" stroke="#387363" stroke-width="5" stroke-linecap="round"/>',pen:'<g transform="translate(33 26) rotate(28)"><rect x="-5" y="-19" width="10" height="37" rx="4" fill="#bd5b61"/><path d="M-5 15H5L0 25Z" fill="#d9ad67"/><path d="M-1.5 22H1.5L0 25Z" fill="#455049"/><path d="M0 -21l3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1Z" fill="#efc36c"/></g><circle cx="13" cy="13" r="4" fill="#93b9aa"/><circle cx="52" cy="38" r="4" fill="#e3b278"/>',none:'<path d="M10 36Q32 14 54 36" fill="none" stroke="#97b1a2" stroke-width="4" stroke-linecap="round"/><circle cx="33" cy="13" r="7" fill="#d0b777"/><path d="M32 23v20M22 28h20" stroke="#6e9684" stroke-width="5" stroke-linecap="round"/>'};return pieces[value]?`<svg viewBox="0 0 64 52" aria-hidden="true">${pieces[value]}</svg>`:''}
+
 function reset(){submittedRow=null;answers={};step=-1;busy=false;requestId=(window.crypto&&typeof window.crypto.randomUUID==='function'?window.crypto.randomUUID():null)||Date.now()+'-'+Math.random().toString(36).slice(2);render()}
 function pruneAnswers(){const j=joined();
 if(answers.docent_participated!==true)Q.filter(x=>x.docent).forEach(x=>delete answers[x.id]);
@@ -120,24 +76,20 @@ Q.filter(x=>x.program&&!j.includes(x.program)).forEach(x=>delete answers[x.id]);
 if(!j.length)Q.filter(x=>x.any).forEach(x=>delete answers[x.id]);
 if(j.length===1)answers.favorite=j[0];else if(!j.includes(answers.favorite))delete answers.favorite;
 }
-function scene(group){const d=el('div','scene');const art=el('div','art');const motifs={
-'기본 정보':'<path d="M43 68V43L76 17l33 26v25Z" fill="#fff0cb"/><path d="M34 45 76 12l42 33" fill="none" stroke="#ce5260" stroke-width="9" stroke-linejoin="round"/><rect x="67" y="47" width="18" height="21" rx="3" fill="#bd7850"/><rect x="48" y="42" width="13" height="13" rx="3" fill="#8cc9ce"/><rect x="91" y="42" width="13" height="13" rx="3" fill="#8cc9ce"/>',
-'도슨트 평가':'<rect x="34" y="19" width="85" height="45" rx="17" fill="#fff0cb"/><path d="m53 60-5 13 21-12" fill="#fff0cb"/><path d="M50 34h53M50 45h36" stroke="#458a78" stroke-width="5" stroke-linecap="round"/>',
-'우리 동네 탐험':'<path d="m25 21 33 9 34-9 34 9v42l-34-9-34 9-33-9Z" fill="#fff0cb" stroke="#cfb579" stroke-width="2"/><path d="m58 30 0 42m34-51v42" stroke="#d3b98b" stroke-width="2"/><path d="M39 49q19-24 35 0t32-7" fill="none" stroke="#d65c62" stroke-width="3" stroke-dasharray="5 5"/><circle cx="109" cy="39" r="13" fill="#d8f2ef" stroke="#39766a" stroke-width="5"/><path d="m119 49 12 13" stroke="#39766a" stroke-width="7" stroke-linecap="round"/>',
-'참여 현황':'<rect x="40" y="34" width="72" height="40" rx="5" fill="#e86b69"/><rect x="34" y="25" width="84" height="15" rx="4" fill="#f29a88"/><path d="M76 25v49" stroke="#ffe3a0" stroke-width="12"/><path d="M76 25Q43 24 52 12T76 25Q109 24 100 12T76 25" fill="none" stroke="#ffe3a0" stroke-width="6"/>',
-};const tree='<path d="m76 7-23 28h12L42 57h16L34 76h84L94 57h16L87 35h12Z" fill="#80b998"/><path d="M76 3l4 9 10 1-8 6 3 10-9-5-9 5 3-10-8-6 10-1Z" fill="#ffe29a"/><circle cx="64" cy="42" r="4" fill="#e86b69"/><circle cx="89" cy="58" r="4" fill="#ffe29a"/><circle cx="60" cy="66" r="4" fill="#ffe29a"/>';
-art.innerHTML='<svg viewBox="0 0 152 82" aria-hidden="true"><circle cx="19" cy="17" r="3" fill="#fff0cb"/><circle cx="134" cy="24" r="4" fill="#fff0cb"/><circle cx="15" cy="61" r="2" fill="#fff0cb"/>'+(motifs[group]||tree)+'</svg>';d.append(art,el('small','',group));return d}
-function render(){view.replaceChildren();view.className='screen';$('header').hidden=step<0||step>=active().length;window.scrollTo(0,0);snow(step<0);
-if(step<0){const hero=el('div','scene hero');hero.innerHTML='<svg viewBox="0 0 320 180" role="img" aria-label="눈 내리는 크리스마스 마을"><path d="M0 155Q80 130 160 151T320 150V180H0" fill="#f9f2dc"/><g fill="#e9c86c"><circle cx="38" cy="28" r="3"/><circle cx="270" cy="40" r="4"/><circle cx="85" cy="52" r="3"/><circle cx="229" cy="20" r="3"/></g><path d="M160 8l7 14 16 2-12 11 3 16-14-8-14 8 3-16-12-11 16-2z" fill="#f5d47c"/><path d="M160 37l-48 52h25l-50 42h42l-48 32h158l-48-32h42l-50-42h25z" fill="#71a77b"/><path d="M150 155h20v20h-20z" fill="#8e593c"/><g fill="#f7d47b"><circle cx="148" cy="78" r="5"/><circle cx="178" cy="103" r="5"/><circle cx="122" cy="139" r="5"/><circle cx="191" cy="145" r="5"/></g><g fill="#c84550"><circle cx="175" cy="72" r="5"/><circle cx="140" cy="111" r="5"/><circle cx="161" cy="145" r="6"/></g><g><path d="M18 127l33-25 33 25v42H18z" fill="#f3e1b5"/><path d="M10 130l41-35 41 35" fill="none" stroke="#b94348" stroke-width="9" stroke-linejoin="round"/><rect x="42" y="145" width="16" height="24" rx="2" fill="#9e6244"/><path d="M242 135l30-24 30 24v35h-60z" fill="#f3e1b5"/><path d="M235 137l37-34 37 34" fill="none" stroke="#b94348" stroke-width="8" stroke-linejoin="round"/><rect x="264" y="147" width="15" height="23" rx="2" fill="#9e6244"/></g></svg>';
-hero.append(el('small','','2026. 11. 28. · 산해진미 트리축제'));
-view.append(hero,el('div','kicker','세종청년도슨트 체험부스 만족도 조사'),el('h1','','오늘의 크리스마스 탐험, 어땠나요?'),el('p','','여러분의 이야기를 들려주세요! 약 1~3분이면 끝나요.'),el('div','note','이 설문은 자율 참여이며 이름이나 연락처를 수집하지 않습니다. 응답은 프로그램 개선 및 지역 해설 교육 효과 연구에 활용될 수 있습니다.'),btn('설문 시작하기','primary',()=>{step=0;render()}));return}
+function render(){
+view.replaceChildren();view.className='screen';$('header').hidden=step<0||step>=active().length;window.scrollTo(0,0);
+if(step<0){
+$('village').replaceChildren();
+view.append(world(0,false,false,true));
+const title=el('div','title-block');title.append(el('div','kicker','2026. 11. 28. · 산해진미 트리축제'),el('h1','','전구를 켜고 크리스마스를 완성해 보세요!'),el('p','dim','질문에 답할 때마다 마을에 불빛이 하나씩 켜져요. 마지막에는 특별한 친구들이 찾아올 거예요.'));
+view.append(title,el('div','note','이 설문은 자율 참여이며 이름이나 연락처를 수집하지 않습니다. 응답은 프로그램 개선 및 지역 해설 교육 효과 연구에 활용될 수 있습니다.'),btn('첫 번째 전구 켜기','primary',()=>{step=0;render()}));return}
 if(step>=active().length){finishScreen();return}
 const list=active(),q=list[step],total=list.length;
-const totalKnown=Array.isArray(answers.programs)&&answers.programs.length>0&&typeof answers.docent_participated==='boolean';
+const totalKnown=Array.isArray(answers.programs)&&answers.programs.length>0&&typeof answers.docent_participated==='boolean'&&q.id!=='programs';
 const estimatedTotal=totalKnown?total:(answers.docent_participated===false?11:17);
 $('count').textContent=totalKnown?`${step+1} / ${total}`:`${step+1}번째 질문`;
-const progress=Math.min(100,Math.round((step+1)/estimatedTotal*100));$('fill').style.width=progress+'%';$('progress').setAttribute('aria-valuenow',progress);
-view.append(scene(q.g),el('h2','',q.q));
+$('village').replaceChildren(world(step/estimatedTotal,false,true,false));garland(estimatedTotal,step);
+view.classList.add('question-screen');view.append(el('span','tag',q.g),el('h2','',q.q));
 if(q.multi)view.append(el('p','hint','해당하는 체험을 모두 골라 주세요.'));
 if(q.stars){renderStars(q);return;}
 const options=el('div','opts');
@@ -153,7 +105,7 @@ else{answers[q.id]=value;pruneAnswers();step++;render()}});
 b.setAttribute('aria-pressed',String(selected));
 const mark=el('span',q.scale?`num score-${value}`:`mark${q.multi?' box':''}`,q.scale?`${value}점`:'');
 if(!q.scale)mark.innerHTML=CHECK;
-b.append(mark,el('span','label',label));options.append(b)}
+b.append(mark);if(value!=='none'&&(q.id==='programs'||q.id==='favorite')&&miniArt(value)){const art=el('span','mini-art');art.innerHTML=miniArt(value);b.classList.add('program-choice');b.append(art)}b.append(el('span','label',label));options.append(b)}
 view.append(options);
 if(q.multi){const ok=(answers[q.id]||[]).length>0;const next=btn('다음','primary',()=>{step++;render()});next.disabled=!ok;view.append(next);if(!ok)view.append(el('p','center','하나 이상 골라야 다음으로 갈 수 있어요.'))}}
 function renderStars(q){
@@ -170,8 +122,9 @@ function renderStars(q){
 }
 $('back').onclick=()=>{if(!busy){step--;render()}};
 function finishScreen(){
-  view.append(scene('마지막 단계'),el('h2','','모든 질문에 답했어요!'),el('p','','아래 버튼을 눌러 응답을 제출해 주세요.'));
-  view.append(btn('응답 제출하기','primary',submit),btn('이전 답변 확인','secondary',()=>{step--;render()}));
+  $('village').replaceChildren();view.className='screen ending';
+  const st=el('div','endcard');st.append(world(1,false,false,true),el('div','endmark','모든 전구가 켜졌어요'),el('h2','','크리스마스 마을 완성!'),el('p','','모든 질문에 답했어요. 응답을 제출하면 특별한 친구들을 만날 수 있어요.'));
+  view.append(st,btn('응답 제출하기','primary',submit),btn('이전 답변 확인','secondary',()=>{step--;render()}));
 }
 // Match the V5 SQL column names and send null for skipped questions.
 function buildRow(){
@@ -207,17 +160,18 @@ async function submit(){
   buttons.forEach(b=>b.disabled=true);
   let status=document.getElementById('saveStatus');
   if(!status){status=el('p','','');status.id='saveStatus';status.setAttribute('role','status');view.append(status)}
-  status.className='';status.textContent='응답 저장 중…';
+  status.className='dim';status.textContent='응답 저장 중…';
   // Preserve the exact payload and ID for network retries, avoiding accidental duplicate submissions.
   try{if(!submittedRow)submittedRow=buildRow();await postRow(submittedRow);done(true)}
   catch(e){
     busy=false;console.warn('Survey save failed:',e.message);
     status.className='error';
-    status.textContent='저장 확인에 실패했어요. 인터넷 연결을 확인하고 다시 제출해 주세요.';
+    status.textContent=e.http>=400&&e.http<500?'서버에서 응답을 저장하지 못했어요. 운영자에게 알려 주세요. ('+e.message+')':'저장 확인에 실패했어요. 인터넷 연결을 확인하고 다시 제출해 주세요.';
     if(e.http>=400&&e.http<500){submittedRow=null;buttons.forEach(b=>b.disabled=false)}
     else{buttons[0].disabled=false;buttons[1].disabled=true;status.textContent+=' 중복 저장을 막기 위해 같은 응답을 다시 전송합니다.'}
   }
 }
-function done(saved){busy=false;snow(false);view.replaceChildren();$('header').hidden=true;view.append(scene('메리 크리스마스!'),el('h1','center','소중한 응답, 고마워요!'),el('p','center',saved?'응답이 저장되었습니다. 즐거운 축제 보내세요!':'미리보기 완료! 실제 응답은 저장되지 않았습니다.'),btn('처음으로','primary',reset))}
+function done(saved){busy=false;view.replaceChildren();view.className='screen ending';$('header').hidden=true;$('village').replaceChildren();const st=el('div','endcard');st.append(world(1,true,false,true),el('div','endmark','메리 크리스마스'),el('h1','','산타와 루돌프가 찾아왔어요!'),el('p','','여러분 덕분에 크리스마스 마을이 환하게 빛나요. '+(saved?'응답이 저장되었습니다.':'미리보기 완료. 실제 응답은 저장되지 않았습니다.')),el('p','','소중한 이야기를 들려줘서 고마워요.'));view.append(st,btn('처음으로','primary',reset));}
+
 reset();
 </script></body></html>
