@@ -62,6 +62,13 @@ p{margin:8px 0;color:var(--muted)}
 .flake{position:absolute;top:-20px;border-radius:50%;background:#fff;border:1px solid #a9c7da;opacity:.9;animation:fall linear infinite}
 @keyframes fall{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(var(--dx),55vh,0)}100%{transform:translate3d(calc(var(--dx)*-1),115vh,0)}}
 @media(prefers-reduced-motion:reduce){.snow{display:none}}
+.stars-panel{margin:24px 0 12px;padding:18px 8px 14px;border:2px solid var(--line);border-radius:24px;background:#fff;box-shadow:0 4px 0 var(--line)}
+.star-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.star-option{min-width:0;min-height:78px;padding:8px 2px;border:0;border-radius:14px;background:transparent;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-weight:800;font-size:15px}
+.star-option svg{width:100%;max-width:44px;height:auto;fill:#fff4da;stroke:#a87619;stroke-width:1.6;transition:transform .12s,fill .12s}
+.star-option.lit svg{fill:#eebc52;stroke:#976916}.star-option.selected{background:#f4edda}.star-option:active svg{transform:scale(.92)}
+.star-endpoints{display:flex;justify-content:space-between;gap:4px;font-weight:700;font-size:13px;color:var(--muted);padding:10px 4px 0}
+@media(max-width:350px){.app{padding-left:12px;padding-right:12px}.star-option{font-size:14px}.stars-panel{padding-left:4px;padding-right:4px}}
 [hidden]{display:none!important}
 </style></head><body><div class="app"><header id="header" hidden><div class="top"><button class="back" id="back" type="button">이전</button><span class="count" id="count"></span></div><div class="track" role="progressbar" aria-label="설문 진행률" aria-valuemin="0" aria-valuemax="100" id="progress"><div class="fill" id="fill"></div></div></header><main id="view" aria-live="polite"></main><footer class="foot">세종청년도슨트 · 2026 산해진미 트리축제</footer></div><script>
 // Supabase REST API: public publishable key only.
@@ -72,25 +79,32 @@ const CHECK='<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-
 const programs=[['rudolph','종이 루돌프 만들기'],['tour','우리 동네 탐험(마법의 단어를 찾아라!)'],['pen','크리스마스 볼펜 꾸미기']];
 const agree=[[5,'매우 그래요'],[4,'그래요'],[3,'보통이에요'],[2,'별로 그렇지 않아요'],[1,'전혀 그렇지 않아요']];
 const satisfy=[[5,'아주 만족'],[4,'만족'],[3,'보통'],[2,'불만족'],[1,'매우 불만족']];
-// tour: shown only if the tour program was joined. any: shown only if at least one program was joined.
+const knowledge=[[5,'매우 잘 알고 있어요'],[4,'잘 알고 있어요'],[3,'보통이에요'],[2,'잘 몰라요'],[1,'전혀 몰라요']];
+const knowledgeBefore=[[5,'매우 잘 알고 있었어요'],[4,'잘 알고 있었어요'],[3,'보통이었어요'],[2,'잘 몰랐어요'],[1,'전혀 몰랐어요']];
+const SURVEY_VERSION=2;
+// Docent and general experience participation are separate branching questions.
 const Q=[
 {id:'age',g:'기본 정보',q:'귀하는 어디에 해당하나요?',o:[['child','어린이(13세 이하)'],['teen','청소년(14~19세)'],['adult','성인(성인 참여)'],['parent','성인(자녀 동반 참여)']]},
 {id:'residence',g:'기본 정보',q:'현재 어디에 살고 있나요?',o:[['haemil','해밀동'],['sanul','산울동'],['sejong','세종시 내 다른 지역'],['outside','세종시 외 지역']]},
 {id:'channel',g:'기본 정보',q:'어떻게 프로그램을 알게 되었나요?',o:[['poster','실물 포스터'],['carrot','당근마켓'],['sns','SNS(카카오톡 등)'],['friend','지인 추천'],['other','기타']]},
-{id:'programs',g:'참여 현황',q:'오늘 어떤 체험에 참여했나요?',o:[...programs,['none','프로그램에 참가하지 않음']],multi:true},
-{id:'clarity',g:'도슨트 평가',q:'도슨트 선생님의 설명은 이해하기 쉬웠나요?',o:agree,scale:true,tour:true},
-{id:'interest',g:'도슨트 평가',q:'도슨트 선생님의 설명은 재미있었나요?',o:agree,scale:true,tour:true},
-{id:'before',g:'우리 동네 탐험',q:'체험 전, 해밀동·산울동에 대해 얼마나 알고 있었나요?',o:[[3,'잘 알고 있었어요'],[2,'조금 알고 있었어요'],[1,'거의 몰랐어요']],scale:true,tour:true},
-{id:'after',g:'우리 동네 탐험',q:'체험 후, 지금은 해밀동·산울동에 대해 얼마나 알고 있나요?',o:[[3,'잘 알고 있어요'],[2,'조금 알고 있어요'],[1,'거의 몰라요']],scale:true,tour:true},
-{id:'explore',g:'우리 동네 탐험',q:'우리 동네의 다른 장소와 이야기도 더 알아보고 싶어졌나요?',o:agree,scale:true,tour:true},
-{id:'attachment',g:'우리 동네 탐험',q:'체험을 통해 우리 동네가 더욱 소중하게 느껴졌나요?',o:agree,scale:true,tour:true},
-{id:'favorite',g:'참여 현황',q:'어떤 체험이 가장 재미있었나요?',o:programs,any:true},
+{id:'docent_participated',g:'도슨트 평가',q:'세종청년도슨트의 우리 동네 해설에 참여했나요?',o:[[true,'네, 참여했어요'],[false,'아니요, 참여하지 않았어요']]},
+{id:'clarity',g:'도슨트 평가',q:'도슨트 선생님의 설명은 이해하기 쉬웠나요?',o:agree,scale:true,docent:true},
+{id:'interest',g:'도슨트 평가',q:'도슨트 선생님의 설명은 재미있었나요?',o:agree,scale:true,docent:true},
+{id:'before',g:'우리 동네 탐험',q:'체험 전, 해밀동·산울동에 대해 얼마나 알고 있었나요?',o:knowledgeBefore,scale:true,docent:true},
+{id:'after',g:'우리 동네 탐험',q:'체험 후, 지금은 해밀동·산울동에 대해 얼마나 알고 있나요?',o:knowledge,scale:true,docent:true},
+{id:'explore',g:'우리 동네 탐험',q:'우리 동네의 다른 장소와 이야기도 더 알아보고 싶어졌나요?',o:agree,scale:true,docent:true},
+{id:'attachment',g:'우리 동네 탐험',q:'체험을 통해 우리 동네가 더욱 소중하게 느껴졌나요?',o:agree,scale:true,docent:true},
+{id:'programs',g:'참여 현황',q:'오늘 어떤 체험에 참여했나요?',o:[...programs,['none','참여하지 않았어요']],multi:true},
+{id:'rudolph_satisfaction',g:'체험 만족도',q:'종이 루돌프 만들기 체험에 얼마나 만족했나요?',o:satisfy,scale:true,stars:true,program:'rudolph'},
+{id:'tour_satisfaction',g:'체험 만족도',q:'우리 동네 탐험 체험에 얼마나 만족했나요?',o:satisfy,scale:true,stars:true,program:'tour'},
+{id:'pen_satisfaction',g:'체험 만족도',q:'크리스마스 볼펜 꾸미기 체험에 얼마나 만족했나요?',o:satisfy,scale:true,stars:true,program:'pen'},
+{id:'favorite',g:'참여 현황',q:'어떤 체험이 가장 재미있었나요?',o:programs,multiple:true},
 {id:'docent_satisfaction',g:'종합 평가',q:'오늘 세종청년도슨트의 체험 프로그램에 만족했나요?',o:satisfy,scale:true,any:true},
 {id:'festival_satisfaction',g:'종합 평가',q:'오늘 산해진미 트리축제 전체에 만족했나요?',o:satisfy,scale:true}];
 let answers={},step=-1,busy=false,requestId='';
 const $=id=>document.getElementById(id);const view=$('view');
 const joined=()=>(answers.programs||[]).filter(v=>v!=='none');
-const active=()=>Q.filter(q=>(!q.tour||joined().includes('tour'))&&(!q.any||joined().length>0));
+const active=()=>Q.filter(q=>(!q.docent||answers.docent_participated===true)&&(!q.any||joined().length>0)&&(!q.program||joined().includes(q.program))&&(!q.multiple||joined().length>1));
 const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
 function btn(txt,cls,fn){const b=el('button',cls,txt);b.type='button';b.onclick=fn;return b}
 let snowEl=null,snowTimer=0;
@@ -100,7 +114,12 @@ const layer=snowEl=el('div','snow');layer.setAttribute('aria-hidden','true');doc
 const drop=()=>{if(layer.childElementCount>40)return;const f=el('span','flake');const s=4+Math.random()*8;f.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;animation-duration:${8+Math.random()*6}s;--dx:${Math.random()*50-25}px`;f.addEventListener('animationend',()=>f.remove());layer.append(f)};
 drop();snowTimer=setInterval(drop,450)}
 function reset(){submittedRow=null;answers={};step=-1;busy=false;requestId=(window.crypto&&typeof window.crypto.randomUUID==='function'?window.crypto.randomUUID():null)||Date.now()+'-'+Math.random().toString(36).slice(2);render()}
-function pruneAnswers(){const j=joined();if(!j.includes('tour'))Q.filter(x=>x.tour).forEach(x=>delete answers[x.id]);if(!j.length)Q.filter(x=>x.any).forEach(x=>delete answers[x.id]);if(!j.includes(answers.favorite))delete answers.favorite}
+function pruneAnswers(){const j=joined();
+if(answers.docent_participated!==true)Q.filter(x=>x.docent).forEach(x=>delete answers[x.id]);
+Q.filter(x=>x.program&&!j.includes(x.program)).forEach(x=>delete answers[x.id]);
+if(!j.length)Q.filter(x=>x.any).forEach(x=>delete answers[x.id]);
+if(j.length===1)answers.favorite=j[0];else if(!j.includes(answers.favorite))delete answers.favorite;
+}
 function scene(group){const d=el('div','scene');const art=el('div','art');const motifs={
 '기본 정보':'<path d="M43 68V43L76 17l33 26v25Z" fill="#fff0cb"/><path d="M34 45 76 12l42 33" fill="none" stroke="#ce5260" stroke-width="9" stroke-linejoin="round"/><rect x="67" y="47" width="18" height="21" rx="3" fill="#bd7850"/><rect x="48" y="42" width="13" height="13" rx="3" fill="#8cc9ce"/><rect x="91" y="42" width="13" height="13" rx="3" fill="#8cc9ce"/>',
 '도슨트 평가':'<rect x="34" y="19" width="85" height="45" rx="17" fill="#fff0cb"/><path d="m53 60-5 13 21-12" fill="#fff0cb"/><path d="M50 34h53M50 45h36" stroke="#458a78" stroke-width="5" stroke-linecap="round"/>',
@@ -111,12 +130,16 @@ art.innerHTML='<svg viewBox="0 0 152 82" aria-hidden="true"><circle cx="19" cy="
 function render(){view.replaceChildren();view.className='screen';$('header').hidden=step<0||step>=active().length;window.scrollTo(0,0);snow(step<0);
 if(step<0){const hero=el('div','scene hero');hero.innerHTML='<svg viewBox="0 0 320 180" role="img" aria-label="눈 내리는 크리스마스 마을"><path d="M0 155Q80 130 160 151T320 150V180H0" fill="#f9f2dc"/><g fill="#e9c86c"><circle cx="38" cy="28" r="3"/><circle cx="270" cy="40" r="4"/><circle cx="85" cy="52" r="3"/><circle cx="229" cy="20" r="3"/></g><path d="M160 8l7 14 16 2-12 11 3 16-14-8-14 8 3-16-12-11 16-2z" fill="#f5d47c"/><path d="M160 37l-48 52h25l-50 42h42l-48 32h158l-48-32h42l-50-42h25z" fill="#71a77b"/><path d="M150 155h20v20h-20z" fill="#8e593c"/><g fill="#f7d47b"><circle cx="148" cy="78" r="5"/><circle cx="178" cy="103" r="5"/><circle cx="122" cy="139" r="5"/><circle cx="191" cy="145" r="5"/></g><g fill="#c84550"><circle cx="175" cy="72" r="5"/><circle cx="140" cy="111" r="5"/><circle cx="161" cy="145" r="6"/></g><g><path d="M18 127l33-25 33 25v42H18z" fill="#f3e1b5"/><path d="M10 130l41-35 41 35" fill="none" stroke="#b94348" stroke-width="9" stroke-linejoin="round"/><rect x="42" y="145" width="16" height="24" rx="2" fill="#9e6244"/><path d="M242 135l30-24 30 24v35h-60z" fill="#f3e1b5"/><path d="M235 137l37-34 37 34" fill="none" stroke="#b94348" stroke-width="8" stroke-linejoin="round"/><rect x="264" y="147" width="15" height="23" rx="2" fill="#9e6244"/></g></svg>';
 hero.append(el('small','','2026. 11. 28. · 산해진미 트리축제'));
-view.append(hero,el('div','kicker','세종청년도슨트 체험부스 만족도 조사'),el('h1','','오늘의 크리스마스 탐험, 어땠나요?'),el('p','','여러분의 이야기를 들려주세요! 약 1~2분이면 끝나요.'),el('div','note','이 설문은 자율 참여이며 이름이나 연락처를 수집하지 않습니다. 응답은 프로그램 개선 및 지역 해설 교육 효과 연구에 활용될 수 있습니다. 미성년자의 경우 보호자와 함께 안내를 확인해 주세요.'),btn('설문 시작하기','primary',()=>{step=0;render()}));return}
+view.append(hero,el('div','kicker','세종청년도슨트 체험부스 만족도 조사'),el('h1','','오늘의 크리스마스 탐험, 어땠나요?'),el('p','','여러분의 이야기를 들려주세요! 약 1~3분이면 끝나요.'),el('div','note','이 설문은 자율 참여이며 이름이나 연락처를 수집하지 않습니다. 응답은 프로그램 개선 및 지역 해설 교육 효과 연구에 활용될 수 있습니다.'),btn('설문 시작하기','primary',()=>{step=0;render()}));return}
 if(step>=active().length){finishScreen();return}
 const list=active(),q=list[step],total=list.length;
-$('count').textContent=`${step+1} / ${total}`;$('fill').style.width=`${(step+1)/total*100}%`;$('progress').setAttribute('aria-valuenow',Math.round((step+1)/total*100));
+const totalKnown=Array.isArray(answers.programs)&&answers.programs.length>0&&typeof answers.docent_participated==='boolean';
+const estimatedTotal=totalKnown?total:(answers.docent_participated===false?11:17);
+$('count').textContent=totalKnown?`${step+1} / ${total}`:`${step+1}번째 질문`;
+const progress=Math.min(100,Math.round((step+1)/estimatedTotal*100));$('fill').style.width=progress+'%';$('progress').setAttribute('aria-valuenow',progress);
 view.append(scene(q.g),el('h2','',q.q));
 if(q.multi)view.append(el('p','hint','해당하는 체험을 모두 골라 주세요.'));
+if(q.stars){renderStars(q);return;}
 const options=el('div','opts');
 const choices=q.id==='favorite'?q.o.filter(o=>joined().includes(o[0])):q.o;
 for(const [value,label] of choices){
@@ -126,23 +149,36 @@ if(q.multi){let a=new Set(answers[q.id]||[]);
 if(value==='none'){a=a.has('none')?new Set():new Set(['none'])}
 else{a.delete('none');a.has(value)?a.delete(value):a.add(value)}
 answers[q.id]=[...a];pruneAnswers();render()}
-else{answers[q.id]=value;step++;render()}});
+else{answers[q.id]=value;pruneAnswers();step++;render()}});
 b.setAttribute('aria-pressed',String(selected));
 const mark=el('span',q.scale?`num score-${value}`:`mark${q.multi?' box':''}`,q.scale?`${value}점`:'');
 if(!q.scale)mark.innerHTML=CHECK;
 b.append(mark,el('span','label',label));options.append(b)}
 view.append(options);
 if(q.multi){const ok=(answers[q.id]||[]).length>0;const next=btn('다음','primary',()=>{step++;render()});next.disabled=!ok;view.append(next);if(!ok)view.append(el('p','center','하나 이상 골라야 다음으로 갈 수 있어요.'))}}
+function renderStars(q){
+  const panel=el('div','stars-panel'), row=el('div','star-options');
+  const star='<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3.8 25.1 14.4 36.8 16.1 28.3 24.4 30.3 36.1 20 30.6 9.7 36.1 11.7 24.4 3.2 16.1 14.9 14.4Z" stroke-linejoin="round"/></svg>';
+  for(const [score,label] of q.o){
+    const selected=answers[q.id]===score;
+    const b=btn('',`star-option${selected?' selected':''}${typeof answers[q.id]==='number'&&score<=answers[q.id]?' lit':''}`,()=>{if(busy)return;answers[q.id]=score;step++;render()});
+    b.setAttribute('aria-label',score+'점 '+label);b.setAttribute('aria-pressed',String(selected));
+    b.innerHTML=star;b.append(el('span','',score+'점'));row.append(b);
+  }
+  const ends=el('div','star-endpoints');ends.append(el('span','','아주 만족'),el('span','','매우 불만족'));
+  panel.append(row,ends);view.append(el('p','hint','별을 눌러 점수를 골라 주세요.'),panel);
+}
 $('back').onclick=()=>{if(!busy){step--;render()}};
 function finishScreen(){
   view.append(scene('마지막 단계'),el('h2','','모든 질문에 답했어요!'),el('p','','아래 버튼을 눌러 응답을 제출해 주세요.'));
   view.append(btn('응답 제출하기','primary',submit),btn('이전 답변 확인','secondary',()=>{step--;render()}));
 }
-// Match the V4 SQL column names and send null for skipped questions.
+// Match the V5 SQL column names and send null for skipped questions.
 function buildRow(){
   pruneAnswers();
-  const row={client_id:requestId};
+  const row={client_id:requestId,survey_version:SURVEY_VERSION};
   Q.forEach(q=>{row[q.id]=Object.prototype.hasOwnProperty.call(answers,q.id)?answers[q.id]:null});
+  for(const q of active()){if(row[q.id]===null||(q.multi&&!row[q.id].length))throw new Error('Missing answer: '+q.id)}
   return row;
 }
 async function postRow(row){
@@ -173,8 +209,7 @@ async function submit(){
   if(!status){status=el('p','','');status.id='saveStatus';status.setAttribute('role','status');view.append(status)}
   status.className='';status.textContent='응답 저장 중…';
   // Preserve the exact payload and ID for network retries, avoiding accidental duplicate submissions.
-  if(!submittedRow)submittedRow=buildRow();
-  try{await postRow(submittedRow);done(true)}
+  try{if(!submittedRow)submittedRow=buildRow();await postRow(submittedRow);done(true)}
   catch(e){
     busy=false;console.warn('Survey save failed:',e.message);
     status.className='error';
